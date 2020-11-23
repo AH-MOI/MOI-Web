@@ -1,7 +1,7 @@
 import React from "react";
 import "./Main.scss";
 import { ReactComponent as Option } from "../../assets/images/option.svg";
-import MainProjectItem from "./MainProjectItem/MainProjectItem";
+import MainProjectItem from "../common/MainProjectItem";
 
 const Main = ({ setSearch }) => {
   return (
