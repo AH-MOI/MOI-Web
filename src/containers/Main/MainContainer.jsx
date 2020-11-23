@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { inject, observer } from "mobx-react";
+import Main from "components/Main/Main";
 
 const MainContainer = () => {
+  const [search, setSearch] = useState("");
   return (
     <>
-      <div />
+      <Main setSearch={setSearch} />
     </>
   );
 };
