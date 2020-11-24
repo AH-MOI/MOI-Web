@@ -8,9 +8,11 @@ const MainProjectItem = ({ project, setIdx }) => {
   const tags = project.hashtag.split("#");
   tags.splice(0, 1);
 
+  console.log(project);
+
   return (
     <>
-      <div className="Main-Project-Item" onClick={() => setIdx(id)}>
+      <div className="Main-Project-Item" onClick={() => setIdx(project.id)}>
         <div className="Main-Project-Item-Thumbnail">
           <div className="Main-Project-Item-Thumbnail-Image"></div>
         </div>

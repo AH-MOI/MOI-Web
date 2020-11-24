@@ -15,23 +15,14 @@ const Progress = ({
         <div className="Progress-top container">
           <span className="Progress-top-title">내가 만든 프로젝트</span>
           <div className="Progress-top-box project">
-            {myProgress ? (
-              myProgress.map((myProgress) => (
-                <ProgressProjectItem
-                  modal={modal}
-                  showMoreProgress={showMoreProgress}
-                  id={myProgress.id}
-                  name={myProgress.title}
-                  content={myProgress.content}
-                  hashtag={myProgress.hashtag}
-                  lastDay={myProgress.closingDate}
-                  writer={myProgress.writer}
-                  setIdx={setIdx}
-                />
-              ))
-            ) : (
-              <></>
-            )}
+            {myProgress.map((_myProgress) => (
+              <ProgressProjectItem
+                modal={modal}
+                showMoreProgress={showMoreProgress}
+                myProgress={_myProgress}
+                setIdx={setIdx}
+              />
+            ))}
           </div>
         </div>
         <div className="Progress-bottom container">
@@ -41,6 +32,7 @@ const Progress = ({
               progress.map((progress) => (
                 <ProgressProjectItem
                   modal={modal}
+                  myProgress={progress}
                   showMoreProgress={showMoreProgress}
                   setIdx={setIdx}
                 />
