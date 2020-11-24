@@ -1,20 +1,53 @@
-import Axios from 'axios';
-import { Logout } from 'lib/requestApi';
+import { INFO } from 'lib/requestUrl';
+import { ACCESS_TOKEN, ACCESS_TOKEN_NAME, BASE_URL_LIST, checkIsLogin, methodType, requestApiWithoutBodyWithToken, Logout   , requestApiWithBodyWithToken } from 'lib/requestApi';  
 import React, { useCallback, useEffect, useState } from 'react';
 import "./UserProfile.scss";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
+    const {userInfo: info }=  props;
+    const [userInfo, setUserInfo] = useState({
+        area: info.area,
+        birthday: info.birthday,
+        github: info.github,
+        hashtag: info.hashtag,
+        id: info.id,
+        introduce: info.introduce,
+        name: info.name,
+        phoneNumber: info.phoneNumber,
+        profile: info.profile,
+        school: info.school,
+        star: info.star
+    })
+
     const [modal, setModal] = useState(false);
     const [modify, setModify] = useState(false);
-    const [tel, setTel] = useState("010-0000-0000");
-    const [git, setGit] = useState("https://github.com/cutyapple");
-    const [field, setFiled] = useState("Frontend");
-    const [stack, setStack] = useState("#React");
-    const [initState, setInitState] = useState({tel, git, field, stack});
+    const [initState, setInitState] = useState({
+        area: userInfo.area, 
+        github: userInfo.github, 
+        hashTag: userInfo.github, 
+        phoneNumber: userInfo.phoneNumber,
+        profile: userInfo.profile, 
+        introduce: userInfo.introduce
+    });
 
-    useEffect(()=>{
-        // Axios.get("https://localhost:8888/")
-    }, [])
+    useEffect(() => {
+        try {
+            const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
+            const res = requestApiWithoutBodyWithToken(BASE_URL_LIST.BLUE, methodType.GET, INFO.getUserInfo(), {
+                headers: {
+                    [ACCESS_TOKEN_NAME]: accessToken
+                }
+            })
+            res.then(res => { setUserInfo({...res.data})});
+
+        } catch (err) {
+            console.log(err);
+        }
+    }, []);
+
+    const onUserInfoChange = useCallback((name, e) => {
+        setUserInfo({ ...userInfo, [name]: e.target.value });
+    }, [userInfo]);
 
     const showModal = useCallback(() => {
         setModal(true);
@@ -24,45 +57,31 @@ const UserProfile = () => {
         setModal(false);
     }, [modal])
 
-    const onTelChange = useCallback((e) => {
-        setTel(e.target.value);
-    }, [tel])
-
-    const onGitChange = useCallback((e) => {
-        setGit(e.target.value);
-    }, [git]);
-
-    const onFieldChange = useCallback((e) => {
-        setFiled(e.target.value);
-    }, [field])
-
-    const onStackChange = useCallback((e) => {
-        setStack(e.target.value);
-    }, [stack]);
-    
-    const onSaveClick = useCallback(() => {
+    const onSaveClick = async() => {
         try{
-            
+            const ress = await requestApiWithBodyWithToken(BASE_URL_LIST.BLUE, methodType.PATCH, INFO.putStd(), {
+                area: userInfo.area,
+                github: userInfo.github,
+                profile: userInfo.profile,
+                hashtag: userInfo.hashtag,
+                phoneNumber: userInfo.phoneNumber,
+                introduce: userInfo.introduce, 
+            })
+
             alert("저장되었습니다.");
             setModify(false);
-            setInitState(tel, git, field, stack);
+            
+            setInitState({area: userInfo.area, github: userInfo.github, hashTag: userInfo.github,introduce:userInfo.introduce, phoneNumber: userInfo.phoneNumber, profile: userInfo.profile});
+            
         } catch {
             alert("저장에 실패했습니다.")
         }
-    }, [modify]);
-
-    const logout = () => {
-        alert("로그아웃되었습니다.")
-        dropModal();
-    }
+    };
 
     const onSaveCancleClick = useCallback(() => {
-        setTel(initState.tel);
-        setGit(initState.git);
-        setFiled(initState.field);
-        setStack(initState.stack);
+        setUserInfo({ ...userInfo, ...initState });
         setModify(!modify);
-    }, [tel, git, field, stack, modify])
+    }, [userInfo])
 
     const onModifyClick = useCallback(() => {
         setModify(!modify);
@@ -76,43 +95,50 @@ const UserProfile = () => {
                     <label>프로필</label>
                     <div className="user-modal-item-wrap user-profile-wrap">
                         <span>프로필</span>
-                        <img src="" className="user-profile" />
+                        <div className="user-profile"></div>
                     </div>
                     <div className="user-modal-grid">
                         <div className="user-modal-item-wrap">
                             <span>이름</span>
-                            <span>{"유시온"}</span>
+                            <span>{userInfo.name}</span>
                         </div>
                         <div className="user-modal-item-wrap">
                             <span>아이디</span>
-                            <span>{"cutyapple"}</span>
+                            <span>{userInfo.id}</span>
                         </div>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>학교</span>
-                        <span>{"대덕소프트웨어마이스터고등학교"}</span>
-                    </div>
+                        <span>{`${userInfo.school}소프트웨어마이스터고등학교`}</span>
+                    </div>  
                 </div>
                 <div className="user-modal-wrap contact-wrap">
                     <label htmlFor="">연락 정보</label>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>전화번호</span>
-                        <input type="tel" value={tel} onChange={onTelChange} placeholder="전화번호를 입력하세요"/>
+                        <input type="tel" value={userInfo.phoneNumber} onChange={(e) => onUserInfoChange("phoneNumber",e )} placeholder="전화번호를 입력하세요"/>
                     </div>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>Github</span>
-                        <input type="url" value={git} onChange={onGitChange} placeholder="깃허브 주소를 입력하세요."/>
+                        <input type="url" value={userInfo.github} onChange={(e) => onUserInfoChange("github",e )} placeholder="깃허브 주소를 입력하세요."/>
                     </div>
                 </div>
                 <div className="user-modal-wrap major-wrap">
                     <label htmlFor="">전공</label>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>분야</span>
-                        <input type="text" value={field} onChange={onFieldChange} placeholder="전공분야를 입력하세요." />
+                        <input type="text" value={userInfo.area} onChange={(e) => onUserInfoChange("area",e )} placeholder="전공분야를 입력하세요." />
                     </div>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>기술스택</span>
-                        <input type="text" value={stack} onChange={onStackChange} placeholder="기술스택을 입력하세요" />
+                        <input type="text" value={userInfo.hashtag} onChange={(e) => onUserInfoChange("hashtag",e )} placeholder="기술스택을 입력하세요" />
+                    </div>
+                </div>
+                <div className="user-modal-wrap introduce-wrap">
+                    <label htmlFor="">자기소개</label>
+                    <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
+                        <span>자기소개</span>
+                        <textarea value={userInfo.introduce} onChange={(e) => onUserInfoChange("introduce", e)}/>
                     </div>
                 </div>
                 <div className="footer">
@@ -125,47 +151,54 @@ const UserProfile = () => {
                     <label>프로필</label>
                     <div className="none-modify-user-modal-item-wrap user-modal-item-wrap user-profile-wrap">
                         <span>프로필</span>
-                        <img src="" className="user-profile" />
+                        <div className="user-profile"></div>
                     </div>
                     <div className="user-modal-grid">
                         <div className="user-modal-item-wrap">
                             <span>이름</span>
-                            <span>유시온</span>
+                            <span>{userInfo.name}</span>
                         </div>
                         <div className="user-modal-item-wrap">
                             <span>아이디</span>
-                            <span>cutyapple</span>
+                            <span>{userInfo.id}</span>
                         </div>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>학교</span>
-                        <span>대덕소프트웨어마이스터고등학교</span>
+                        <span>{`${userInfo.school}소프트웨어마이스터고등학교`}</span>
                     </div>
                 </div>
                 <div className="user-modal-wrap contact-wrap">
                     <label htmlFor="">연락 정보</label>
                     <div className="user-modal-item-wrap">
                         <span>전화번호</span>
-                        <span>{tel}</span>
+                        <span>{userInfo.phoneNumber}</span>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>Github</span>
-                        <a href={git}>{git}</a>
+                        <a href={userInfo.github}>{userInfo.github}</a>
                     </div>
                 </div>
                 <div className="user-modal-wrap major-wrap">
                     <label htmlFor="">전공</label>
                     <div className="user-modal-item-wrap">
                         <span>분야</span>
-                        <span>{field}</span>
+                        <span>{userInfo.area}</span>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>기술스택</span>
-                        <span>{stack}</span>
+                        <span>{userInfo.hashtag}</span>
+                    </div>
+                </div>
+                <div className="user-modal-wrap introduce-wrap">
+                    <label htmlFor="">자기소개</label>
+                    <div className="user-modal-item-wrap">
+                        <span>자기소개</span>
+                        <textarea readOnly>{userInfo.introduce}</textarea>
                     </div>
                 </div>
                 <div className="footer">
-                    <button className="modify footer-btn" onClick={onModifyClick}>수정</button>
+                    <button className="modify footer-btn" onClick={onModifyClick}>정보수정</button>
                     <button className="logout-btn footer-btn" onClick={showModal}>로그아웃</button>
                 </div>
                 {modal && <div className="modal-background">
