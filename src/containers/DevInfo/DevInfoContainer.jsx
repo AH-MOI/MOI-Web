@@ -9,7 +9,8 @@ const DevInfoContainer = ({}) => {
   const {devInfo, handleGetDevInfo} = stores.MyProjectStore;
 
   const handleGetDevInfoCallback = useCallback(async() => {
-    await handleGetDevInfo().then((res) => {
+    const accessToken = localStorage.getItem('accessToken');
+    await handleGetDevInfo(accessToken).then((res) => {
     }).catch((err) => {
       console.log(err.message);
     });    
@@ -20,9 +21,9 @@ const DevInfoContainer = ({}) => {
   }, [handleGetDevInfoCallback])
 
   return (
-    <>
+    <>  
       {show && <Modal showMoreProgress={handleShow}>
-        <DevInfo devInfo={devInfo}/>
+      {devInfo && devInfo.map((item) =>  <DevInfo devInfo={item} />)}
       </Modal>}
     </>
   );
