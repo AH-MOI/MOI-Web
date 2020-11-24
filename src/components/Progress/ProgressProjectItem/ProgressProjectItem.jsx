@@ -10,6 +10,7 @@ const ProgressProjectItem = ({
   setIdx,
   getProgress,
   loading,
+  handleApplyStudent,
 }) => {
   const MAX_SHOW_COUNT = 4;
 
@@ -70,6 +71,7 @@ const ProgressProjectItem = ({
               showMoreProgress={showMoreProgress}
               getProgress={getProgress}
               loading={loading}
+              handleApplyStudent={handleApplyStudent}
             />
           ) : (
             <></>

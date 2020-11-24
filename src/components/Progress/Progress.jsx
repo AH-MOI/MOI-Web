@@ -10,6 +10,8 @@ const Progress = ({
   setIdx,
   getProgress,
   loading,
+  tryApplyStudent,
+  handleApplyStudent,
 }) => {
   return (
     <div className="center">
@@ -25,6 +27,7 @@ const Progress = ({
                 setIdx={setIdx}
                 getProgress={getProgress}
                 loading={loading}
+                handleApplyStudent={handleApplyStudent}
               />
             ))}
           </div>
@@ -41,6 +44,7 @@ const Progress = ({
                   setIdx={setIdx}
                   getProgress={getProgress}
                   loading={loading}
+                  handleApplyStudent={handleApplyStudent}
                 />
               ))
             ) : (

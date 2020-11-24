@@ -14,6 +14,7 @@ const ProgressContainer = ({}) => {
     tryProgress,
     tryInfoProgress,
     getOutModal,
+    tryApplyStudent,
     progress,
     myProgress,
     getProgress,
@@ -43,6 +44,17 @@ const ProgressContainer = ({}) => {
   const handleProgress = async () => {
     await tryProgress()
       .then((response) => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleApplyStudent = async () => {
+    console.log(idx);
+    tryApplyStudent("yuzion@dsm.hs.kr", idx)
+      .then((response) => {
+        console.log("신청에 성공하였습니다.");
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -88,6 +100,7 @@ const ProgressContainer = ({}) => {
             setIdx={setIdx}
             getProgress={getProgress}
             loading={loading}
+            handleApplyStudent={handleApplyStudent}
           />
         </>
       ) : (
