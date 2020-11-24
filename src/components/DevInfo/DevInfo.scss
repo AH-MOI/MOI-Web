@@ -1,0 +1,71 @@
+/* your css code */
+
+.DevInfoContainer {
+    display: flex;
+    position: fixed;
+    width: 400px;
+    height: 500px;
+    flex-direction: column;
+    background-color: white;
+
+    border: 1px solid;
+    border-color: #214b73;
+    border-radius: 8px;
+    
+    left: 35%;
+    top: 15%;
+    z-index: 1000;
+}
+
+.ProfileInfo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+    width: auto;
+    height: 30%;
+}
+
+.ProfileImg {
+    width: 150px;
+    height: 150px;
+
+    margin-left: 10px;
+    margin-top: 10px;
+
+    border-radius: 4px;
+}
+
+.PlaceName {
+    display: flex;
+
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 25px;
+}
+
+.PlaceSchool {
+    margin-top: 5px;    
+    margin-left: 5px;
+}
+
+.PlaceSkills {
+    margin-top: 5px;    
+    margin-left: 5px;   
+}
+
+.IntroContainer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.OneLineContent {
+    display: flex;
+
+    padding-left: 5px;
+    padding-top: 10px;
+    width: 95%;
+    height: 150px; 
+}
