@@ -26,6 +26,7 @@
 .project {
   display: flex;
   height: 28rem;
+  width: 100%;
   padding-top: 1rem;
   flex-wrap: wrap;
   overflow-y: auto;
@@ -43,9 +44,7 @@
   }
 }
 .container {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
+  width: 1305px;
 }
 .center {
   width: 100%;

@@ -38,15 +38,17 @@ class ProgressApi {
 
       const data = await axios.get(url, config);
 
+      console.log(data);
+
       return data;
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  async getInfoProgress() {
+  async getInfoProgress(id) {
     try {
-      const url = `${SERVER_BLUE}/info/participation/project`;
+      const url = `${SERVER_BLUE}/info/project/participation/${id}`;
 
       let config = {};
 

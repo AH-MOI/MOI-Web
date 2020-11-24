@@ -16,8 +16,7 @@ class WriteStore {
     content,
     closing_date,
     personnel,
-    hashtag,
-    profile
+    hashtag
   ) => {
     try {
       const response = await CreateApi.create(
@@ -25,8 +24,7 @@ class WriteStore {
         content,
         closing_date,
         personnel,
-        hashtag,
-        profile
+        hashtag
       );
 
       if (response.status === 200) {
