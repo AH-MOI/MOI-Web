@@ -24,7 +24,11 @@ const Main = ({
   removeSelectedMenu,
   removeSelectedLanguage,
   initSelectedList,
+  projects,
+  loading,
+  notFound,
 }) => {
+  // console.log(projects);
   const techs = [
     "프론트엔드",
     "백엔드",
@@ -156,16 +160,9 @@ const Main = ({
           </div>
           <span className="Main-Container-Count">100개의 프로젝트</span>
           <div className="Main-Container-Projects">
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
-            <MainProjectItem />
+            {projects.map((project, idx) => (
+              <MainProjectItem key={idx} project={project} />
+            ))}
           </div>
         </div>
       </div>
