@@ -1,0 +1,15 @@
+@import "../../../util/color.scss";
+
+.Dev-Select-Box {
+  top: 4rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  background: white;
+  width: 10rem;
+  height: auto;
+  position: absolute;
+  border: 0.0625rem $v-light-gray solid;
+  border-radius: 0.2rem;
+}
