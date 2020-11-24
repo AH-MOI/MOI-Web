@@ -1,8 +1,8 @@
 import React from "react";
 import "./Main.scss";
 import { ReactComponent as Option } from "../../assets/images/option.svg";
+import MainProjectItem from "../common/MainProjectItem";
 import { ReactComponent as Search } from "../../assets/images/search.svg";
-import MainProjectItem from "./MainProjectItem/MainProjectItem";
 import MainSelectBox from "./MainSelectBox";
 import { GrFormClose } from "react-icons/gr";
 
