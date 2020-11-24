@@ -78,5 +78,26 @@ class ProgressStore {
       });
     }
   };
+  @action
+  tryApplyStudent = async (appliedStudentId, projectId) => {
+    try {
+      const response = await ProgressApi.applyStuddent(
+        appliedStudentId,
+        projectId
+      );
+
+      if (response.status === 200) {
+        console.log(response);
+      }
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  };
 }
 export default ProgressStore;

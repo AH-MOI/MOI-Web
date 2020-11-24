@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import ReactLoading from "react-loading";
 import "./ProgressModal.scss";
 import Modal from "components/common/Modal/Modal";
-
+import { BsCheckCircle } from "react-icons/bs";
 const ProgressModal = ({
   modal,
   showMoreProgress,
   getProgress,
-  modalLoading,
   loading,
+  handleApplyStudent,
 }) => {
   const person = ["정성훈", "임규민", "서진", "유시온", "이진혁", "문재민"];
   const skill = ["node.js", "react.js", "javascript", "express"];
@@ -41,7 +41,13 @@ const ProgressModal = ({
                       지원자
                     </span>
                     {person.map((person) => (
-                      <span>{person}</span>
+                      <div className="person">
+                        <span>{person}</span>
+                        <BsCheckCircle
+                          className="successButton"
+                          onClick={() => handleApplyStudent()}
+                        />
+                      </div>
                     ))}
                   </div>
                   <div className="ProgressModal-bottom-right-tech">
