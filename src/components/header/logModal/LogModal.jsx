@@ -17,7 +17,6 @@ const LogModal = (props) => {
         setLog({...log, [name]: e.target.value});
     }, [log])
 
-
     const { modal } = props;
     const { setModal } = props;
 
