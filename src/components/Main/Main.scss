@@ -18,7 +18,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 2rem 0;
+      margin: 1rem 0;
       padding: 0 1rem;
 
       &-Bar {
@@ -69,7 +69,9 @@
         display: flex;
         align-items: center;
 
-        & > div {
+        &-Career,
+        &-Language,
+        &-School {
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -99,6 +101,48 @@
         &-School {
           width: 16rem;
           margin-left: 0.6rem;
+        }
+      }
+    }
+
+    &-HashTags {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      margin-bottom: 2rem;
+
+      &-Item {
+        display: flex;
+        align-items: center;
+        background-color: $v-light-gray;
+        padding: 0.2rem 0.7rem;
+        border-radius: 0.2rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $dark-gray;
+        margin-right: 0.4rem;
+
+        & > span {
+          margin-right: 0.2rem;
+        }
+
+        & > svg {
+          cursor: pointer;
+        }
+      }
+
+      &-Init {
+        padding: 0.3rem 0.4rem;
+        border-radius: 0.2rem;
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: $gray;
+        margin-left: 0.3rem;
+        cursor: pointer;
+        transition: all ease 0.2s;
+
+        &:hover {
+          background-color: $vv-light-gray;
         }
       }
     }
