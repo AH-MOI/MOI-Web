@@ -1,34 +1,15 @@
-import React, { useState } from "react";
-import { inject, observer } from "mobx-react";
-import Main from "components/DevFind/DevFind";
+import React from "react";
+import { observer } from "mobx-react";
+import DevFind from "../../components/DevFind";
+import stores from "stores";
 
-const DevFindContainer = () => {
-  const [search, setSearch] = useState("");
-  const [show, setShow] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState([]);
-
-  const removeSelectedMenu = (menu) => {
-    let array = [...selectedMenu];
-    const index = array.indexOf(menu);
-    array.splice(index, 1);
-    setSelectedMenu(array);
-  };
-
-  const initSelectedMenu = () => setSelectedMenu([]);
-
+const DevFindContainer = ({}) => {
+  const { handleShow } = stores.ModalStore;
   return (
     <>
-      <Main
-        setSearch={setSearch}
-        show={show}
-        setShow={setShow}
-        selectedMenu={selectedMenu}
-        setSelectedMenu={setSelectedMenu}
-        removeSelectedMenu={removeSelectedMenu}
-        initSelectedMenu={initSelectedMenu}
-      />
+      <DevFind handleShow={handleShow}/>
     </>
   );
 };
 
-export default inject("store")(observer(DevFindContainer));
+export default observer(DevFindContainer);
