@@ -1,6 +1,6 @@
 import React from "react";
 import "./Progress.scss";
-import ProgressProjectItem from "./ProgressProjectItem/ProgressProjectItem";
+import ProgressProjectItem from "./ProgressProjectItem";
 
 const Progress = ({
   modal,
@@ -8,6 +8,8 @@ const Progress = ({
   myProgress,
   progress,
   setIdx,
+  getProgress,
+  loading,
 }) => {
   return (
     <div className="center">
@@ -21,6 +23,8 @@ const Progress = ({
                 showMoreProgress={showMoreProgress}
                 myProgress={_myProgress}
                 setIdx={setIdx}
+                getProgress={getProgress}
+                loading={loading}
               />
             ))}
           </div>
@@ -35,6 +39,8 @@ const Progress = ({
                   myProgress={progress}
                   showMoreProgress={showMoreProgress}
                   setIdx={setIdx}
+                  getProgress={getProgress}
+                  loading={loading}
                 />
               ))
             ) : (
