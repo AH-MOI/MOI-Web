@@ -2,17 +2,12 @@ import React from "react";
 import "./MainProjectItem.scss";
 import moment from "moment";
 
-const MainProjectItem = ({
-  id,
-  name,
-  content,
-  hashtag,
-  lastDay,
-  writer,
-  setIdx,
-}) => {
+const MainProjectItem = ({ project, setIdx }) => {
   const MAX_SHOW_COUNT = 4;
-  const techModel = ["Node", "Spring", "React", "ReactNative", "JS", "TS"];
+
+  const tags = project.hashtag.split("#");
+  tags.splice(0, 1);
+
   return (
     <>
       <div className="Main-Project-Item" onClick={() => setIdx(id)}>
@@ -21,12 +16,14 @@ const MainProjectItem = ({
         </div>
         <div className="Main-Project-Item-Info">
           <div className="Main-Project-Item-Info-Content">
-            <p className="Main-Project-Item-Info-Content-Title">{name}</p>
+            <p className="Main-Project-Item-Info-Content-Title">
+              {project.title}
+            </p>
             <p className="Main-Project-Item-Info-Content-Description">
-              {content}
+              {project.content}
             </p>
             <div className="Main-Project-Item-Info-Content-Tech">
-              {techModel.map((tech, idx) => (
+              {tags.map((tech, idx) => (
                 <>
                   {idx < MAX_SHOW_COUNT && (
                     <div className="Main-Project-Item-Info-Content-Tech-Tag">
@@ -35,20 +32,19 @@ const MainProjectItem = ({
                   )}
                 </>
               ))}
-              {techModel.length > MAX_SHOW_COUNT && (
+              {tags.length > MAX_SHOW_COUNT && (
                 <div className="Main-Project-Item-Info-Content-Tech-Tag">
-                  외 {techModel.length - MAX_SHOW_COUNT}개
+                  외 {tags.length - MAX_SHOW_COUNT}개
                 </div>
               )}
             </div>
           </div>
           <div className="Main-Project-Item-Info-Bottom">
             <p className="Main-Project-Item-Info-Bottom-Writer">
-              By <span>{writer}</span>
+              By <span>{project.writer}</span>
             </p>
             <p className="Main-Project-Item-Info-Bottom-Date">
-              {lastDay}
-              {/* {moment(new Date()).format("YYYY년 MM월 DD일")} */}
+              {moment(project.closing_date).format("YYYY년 MM월 DD일")}
             </p>
           </div>
         </div>

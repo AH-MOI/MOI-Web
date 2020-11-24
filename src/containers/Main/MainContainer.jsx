@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { inject, observer } from "mobx-react";
 import Main from "components/Main/Main";
+import stores from "stores";
+import { useEffect } from "react";
 
 const MainContainer = () => {
-  const [search, setSearch] = useState("");
-
   const [show, setShow] = useState(false);
   const [showLang, setShowLang] = useState(false);
   const [showSchool, setShowSchool] = useState(false);
@@ -12,6 +12,12 @@ const MainContainer = () => {
   const [selectedMenu, setSelectedMenu] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedSchool, setSelectedSchool] = useState("");
+
+  const [search, setSearch] = useState("");
+
+  const { projects, handleGetProjects } = stores.ProjectStore;
+  const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const removeSelectedMenu = (menu) => {
     let array = [...selectedMenu];
@@ -33,6 +39,24 @@ const MainContainer = () => {
     setSelectedSchool("");
   };
 
+  const handleGetProjectsCallback = useCallback(async () => {
+    setLoading(true);
+    await handleGetProjects()
+      .then((res) => {
+        if (!res.length) {
+          setNotFound(true);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  useEffect(() => {
+    handleGetProjectsCallback();
+  }, [handleGetProjectsCallback]);
+
   return (
     <>
       <Main
@@ -52,6 +76,9 @@ const MainContainer = () => {
         removeSelectedMenu={removeSelectedMenu}
         removeSelectedLanguage={removeSelectedLanguage}
         initSelectedList={initSelectedList}
+        projects={projects}
+        loading={loading}
+        notFound={notFound}
       />
     </>
   );
