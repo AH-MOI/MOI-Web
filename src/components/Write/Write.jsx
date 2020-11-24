@@ -2,6 +2,7 @@ import React from "react";
 import "./Write.scss";
 import Modal from "components/common/Modal/Modal";
 import WritePersonAdd from "./WritePersonAdd/WritePersonAdd";
+import { toast } from "react-toastify";
 
 const Write = ({
   modal,
@@ -57,7 +58,13 @@ const Write = ({
       ) : (
         <></>
       )}
-      <div className="WriteButton" onClick={() => showWriteModal()}>
+      <div
+        className="WriteButton"
+        onClick={() => {
+          // showWriteModal();
+          toast.success("아이씻팔");
+        }}
+      >
         <span>작성하기</span>
       </div>
     </div>
