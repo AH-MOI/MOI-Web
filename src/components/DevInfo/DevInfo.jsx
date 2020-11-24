@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./DevInfo.scss";
 
-const DevInfo = ({}) => {
+const DevInfo = ({devInfo}) => {
+  console.log(devInfo);
   return (
     <>
       <div>
