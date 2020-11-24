@@ -73,13 +73,13 @@ const Header = () => {
         <div className="header-container" ref={dropRef}>
             <p className="logo-text header-item">MOI</p>
             <div></div>
-            <NavLink to={"/"} className="header-link header-item" activeStyle={activeStyle}>
+            <NavLink exact to={"/"} className="header-link header-item" activeStyle={activeStyle}>
                 프로젝트 찾기
             </NavLink>            
-            <NavLink to={"/1"} className="header-link header-item" activeStyle={activeStyle}>
+            <NavLink exact to={"/devFind"} className="header-link header-item" activeStyle={activeStyle}>
                 개발자 찾기
             </NavLink>            
-            <NavLink to={"/2"} className="header-link header-item" activeStyle={activeStyle}>
+            <NavLink exact to={"/progress"} className="header-link header-item" activeStyle={activeStyle}>
                 프로젝트 현황
             </NavLink>
             <div></div>
