@@ -1,8 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./Progress.scss";
 import ProgressProjectItem from "./ProgressProjectItem/ProgressProjectItem";
-import ProgressModal from "./ProgressModal/ProgressModal";
 
 const Progress = ({ modal, showMoreProgress }) => {
   return (
@@ -20,8 +18,14 @@ const Progress = ({ modal, showMoreProgress }) => {
         <div className="Progress-bottom container">
           <span className="Progress-bottom-title">참여하고 있는 프로젝트</span>
           <div className="Progress-bottom-box project">
-            <ProgressProjectItem />
-            <ProgressProjectItem />
+            <ProgressProjectItem
+              modal={modal}
+              showMoreProgress={showMoreProgress}
+            />
+            <ProgressProjectItem
+              modal={modal}
+              showMoreProgress={showMoreProgress}
+            />
           </div>
         </div>
       </div>
