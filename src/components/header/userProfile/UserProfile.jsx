@@ -38,9 +38,7 @@ const UserProfile = (props) => {
                     [ACCESS_TOKEN_NAME]: accessToken
                 }
             })
-
-            console.log(userInfo);
-            res.then(res => { console.log(`res`); console.log(res); setUserInfo({...res.data})});
+            res.then(res => { setUserInfo({...res.data})});
 
         } catch (err) {
             console.log(err);
@@ -49,7 +47,6 @@ const UserProfile = (props) => {
 
     const onUserInfoChange = useCallback((name, e) => {
         setUserInfo({ ...userInfo, [name]: e.target.value });
-        console.log(name, e.target.value);
     }, [userInfo]);
 
     const showModal = useCallback(() => {
@@ -70,9 +67,6 @@ const UserProfile = (props) => {
                 phoneNumber: userInfo.phoneNumber,
                 introduce: userInfo.introduce, 
             })
-
-            console.log(ress);
-            console.log(userInfo);
 
             alert("저장되었습니다.");
             setModify(false);
@@ -204,7 +198,7 @@ const UserProfile = (props) => {
                     </div>
                 </div>
                 <div className="footer">
-                    <button className="modify footer-btn" onClick={onModifyClick}>수정</button>
+                    <button className="modify footer-btn" onClick={onModifyClick}>정보수정</button>
                     <button className="logout-btn footer-btn" onClick={showModal}>로그아웃</button>
                 </div>
                 {modal && <div className="modal-background">

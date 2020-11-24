@@ -2,8 +2,8 @@ import axios from 'axios';
 import { AUTH } from './requestUrl';
 
 export const BASE_URL_LIST = {
-	RED: 'http://172.30.1.36:8000',
-	BLUE: 'http://172.30.1.24:8888',
+	RED: 'http://192.168.43.101:8000',
+	BLUE: 'http://192.168.43.31:8888',
 };
 
 export const methodType = {
@@ -103,6 +103,26 @@ export const requestApiWithBodyWithToken = async (
 		console.log(error.response);
 
 		throw error.response;
+	}
+};
+
+export const requestRefresh = async () => {
+	try {
+		const refreshToken = window.localStorage.getItem(REFRESH_TOKEN);
+		const res = await requestApiWithoutBodyWithToken(
+			BASE_URL_LIST.BLUE + AUTH.getAcToken(),
+			{
+				[ACCESS_TOKEN_NAME]: refreshToken,
+			},
+		);
+		window.localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
+		window.location.href = window.location.href;
+	} catch (err) {
+		if (err === 403 || err.response.status === 403) {
+			alert('인증이 만료되어 재인증이 필요합니다.');
+			window.localStorage.clear();
+			window.location.href = '/';
+		}
 	}
 };
 

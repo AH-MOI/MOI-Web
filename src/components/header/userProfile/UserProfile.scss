@@ -6,7 +6,7 @@
 	gap: 20px;
 	grid-template: 160px 110px 140px 1fr / 1fr;
 	width: 400px;
-	height: calc(100% - 48px);
+	height: auto;
 	border: 1px solid #8b8b8b;
 	padding: 10px 20px;
 	box-sizing: border-box;
@@ -141,10 +141,10 @@
 }
 
 .logout-btn {
-	background: #b2c0cc;
+	background: #da7777;
 
 	&:hover {
-		background: #868686;
+		background: #e64d4d;
 	}
 }
 
@@ -216,4 +216,11 @@
 		outline: none;
 		background: none;
 	}
+}
+
+button,
+textarea {
+	outline: none;
+	font-family: NotoSansKR;
+	resize: none;
 }
