@@ -11,6 +11,7 @@ const UserProfile = (props) => {
         github: info.github,
         hashtag: info.hashtag,
         id: info.id,
+        introduce: info.introduce,
         name: info.name,
         phoneNumber: info.phoneNumber,
         profile: info.profile,
@@ -20,11 +21,17 @@ const UserProfile = (props) => {
 
     const [modal, setModal] = useState(false);
     const [modify, setModify] = useState(false);
-    const [initState, setInitState] = useState({area: userInfo.area, github: userInfo.github, hashTag: userInfo.github, phoneNumber: userInfo.phoneNumber, profile: userInfo.profile});
+    const [initState, setInitState] = useState({
+        area: userInfo.area, 
+        github: userInfo.github, 
+        hashTag: userInfo.github, 
+        phoneNumber: userInfo.phoneNumber,
+        profile: userInfo.profile, 
+        introduce: userInfo.introduce
+    });
 
     useEffect(() => {
         try {
-            
             const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
             const res = requestApiWithoutBodyWithToken(BASE_URL_LIST.BLUE, methodType.GET, INFO.getUserInfo(), {
                 headers: {
@@ -32,7 +39,8 @@ const UserProfile = (props) => {
                 }
             })
 
-            res.then(res => { setUserInfo({...res.data})});
+            console.log(userInfo);
+            res.then(res => { console.log(`res`); console.log(res); setUserInfo({...res.data})});
 
         } catch (err) {
             console.log(err);
@@ -41,6 +49,7 @@ const UserProfile = (props) => {
 
     const onUserInfoChange = useCallback((name, e) => {
         setUserInfo({ ...userInfo, [name]: e.target.value });
+        console.log(name, e.target.value);
     }, [userInfo]);
 
     const showModal = useCallback(() => {
@@ -51,8 +60,6 @@ const UserProfile = (props) => {
         setModal(false);
     }, [modal])
 
-    console.log(userInfo);  
-    
     const onSaveClick = async() => {
         try{
             const ress = await requestApiWithBodyWithToken(BASE_URL_LIST.BLUE, methodType.PATCH, INFO.putStd(), {
@@ -61,12 +68,16 @@ const UserProfile = (props) => {
                 profile: userInfo.profile,
                 hashtag: userInfo.hashtag,
                 phoneNumber: userInfo.phoneNumber,
+                introduce: userInfo.introduce, 
             })
+
+            console.log(ress);
+            console.log(userInfo);
 
             alert("저장되었습니다.");
             setModify(false);
             
-            setInitState({area: userInfo.area, github: userInfo.github, hashTag: userInfo.github, phoneNumber: userInfo.phoneNumber, profile: userInfo.profile});
+            setInitState({area: userInfo.area, github: userInfo.github, hashTag: userInfo.github,introduce:userInfo.introduce, phoneNumber: userInfo.phoneNumber, profile: userInfo.profile});
             
         } catch {
             alert("저장에 실패했습니다.")
@@ -90,7 +101,7 @@ const UserProfile = (props) => {
                     <label>프로필</label>
                     <div className="user-modal-item-wrap user-profile-wrap">
                         <span>프로필</span>
-                        <img src="" className="user-profile" />
+                        <div className="user-profile"></div>
                     </div>
                     <div className="user-modal-grid">
                         <div className="user-modal-item-wrap">
@@ -129,6 +140,13 @@ const UserProfile = (props) => {
                         <input type="text" value={userInfo.hashtag} onChange={(e) => onUserInfoChange("hashtag",e )} placeholder="기술스택을 입력하세요" />
                     </div>
                 </div>
+                <div className="user-modal-wrap introduce-wrap">
+                    <label htmlFor="">자기소개</label>
+                    <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
+                        <span>자기소개</span>
+                        <textarea value={userInfo.introduce} onChange={(e) => onUserInfoChange("introduce", e)}/>
+                    </div>
+                </div>
                 <div className="footer">
                     <button className="modify-save footer-btn" onClick={onSaveClick}>저장</button>
                     <button className="modify-cancle footer-btn" onClick={onSaveCancleClick}>취소</button>
@@ -139,7 +157,7 @@ const UserProfile = (props) => {
                     <label>프로필</label>
                     <div className="none-modify-user-modal-item-wrap user-modal-item-wrap user-profile-wrap">
                         <span>프로필</span>
-                        <img src="" className="user-profile" />
+                        <div className="user-profile"></div>
                     </div>
                     <div className="user-modal-grid">
                         <div className="user-modal-item-wrap">
@@ -176,6 +194,13 @@ const UserProfile = (props) => {
                     <div className="user-modal-item-wrap">
                         <span>기술스택</span>
                         <span>{userInfo.hashtag}</span>
+                    </div>
+                </div>
+                <div className="user-modal-wrap introduce-wrap">
+                    <label htmlFor="">자기소개</label>
+                    <div className="user-modal-item-wrap">
+                        <span>자기소개</span>
+                        <textarea readOnly>{userInfo.introduce}</textarea>
                     </div>
                 </div>
                 <div className="footer">
