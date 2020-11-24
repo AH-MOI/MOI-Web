@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import ReactLoading from "react-loading";
 import "./ProgressModal.scss";
 import Modal from "components/common/Modal/Modal";
 
-const ProgressModal = ({ modal, showMoreProgress }) => {
+const ProgressModal = ({
+  modal,
+  showMoreProgress,
+  getProgress,
+  modalLoading,
+  loading,
+}) => {
   const person = ["정성훈", "임규민", "서진", "유시온", "이진혁", "문재민"];
   const skill = ["node.js", "react.js", "javascript", "express"];
+
   useEffect(() => {
     modal
       ? (document.body.style.overflow = "hidden")
@@ -14,64 +21,80 @@ const ProgressModal = ({ modal, showMoreProgress }) => {
       document.body.style.overflow = "unset";
     };
   }, [modal]);
+
+  console.log(getProgress);
+
   return (
     <>
-      <Modal showMoreProgress={showMoreProgress}>
-        <div className="ProgressModal">
-          <div className="ProgressModal-top">SW마이스터고 연합 해커톤</div>
-          <div className="ProgressModal-bottom">
-            <div className="ProgressModal-bottom-left">
-              가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사
-              아자차카타파하가나다라마
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타
-              파하가나다라마바사아자차카타
-              파하가나다라마바사아자차카타파하가나다라마바
-              사아자차카타파하가나다라마바사아자차카타파하가나다
-              라마바사아자차카타파하가나다라마바사아자차카타파하가나다
-              라마바사아자차카타파하가나다라마바사아자차카타파하가
-              나다라마바사아자차카타파하가나다라마바사아자차카타파하가
-              나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-              바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하
-            </div>
-            <div className="ProgressModal-bottom-right">
-              <div className="ProgressModal-bottom-right-person">
-                <span className="ProgressModal-bottom-right-person-title title">
-                  지원자
-                </span>
-                {person.map((person) => (
-                  <span>{person}</span>
-                ))}
-              </div>
-              <div className="ProgressModal-bottom-right-tech">
-                <span className="title">프론트 - 웹</span>
-                <span>3/5</span>
-                <span className="title">백엔드 - 웹</span>
-                <span>2/4</span>
-              </div>
-              <div className="ProgressModal-bottom-right-hash">
-                <span className="title">스택</span>
-
-                <div className="ProgressModal-bottom-right-hash-container">
-                  {skill.map((skill) => (
-                    <div className="ProgressModal-bottom-right-hash-container-item">
-                      <span>{skill}</span>
+      {loading ? (
+        <Modal showMoreProgress={showMoreProgress}>
+          {getProgress && (
+            <div className="ProgressModal">
+              <div className="ProgressModal-top">{getProgress.title}</div>
+              <div className="ProgressModal-bottom">
+                <div className="ProgressModal-bottom-left">
+                  {getProgress.content}
+                </div>
+                <div className="ProgressModal-bottom-right">
+                  <div className="ProgressModal-bottom-right-person">
+                    <span className="ProgressModal-bottom-right-person-title title">
+                      지원자
+                    </span>
+                    {person.map((person) => (
+                      <span>{person}</span>
+                    ))}
+                  </div>
+                  <div className="ProgressModal-bottom-right-tech">
+                    {getProgress.areas.map((area, _idx) => (
+                      <>
+                        <span key={_idx} className="title">
+                          {area}
+                        </span>
+                        {getProgress.personnel.map((personnel, idx) => (
+                          <>
+                            {idx === _idx ? (
+                              <span key={idx}>{personnel}</span>
+                            ) : (
+                              <></>
+                            )}
+                          </>
+                        ))}
+                      </>
+                    ))}
+                  </div>
+                  <div className="ProgressModal-bottom-right-hash">
+                    <span className="title">스택</span>
+                    <div className="ProgressModal-bottom-right-hash-container">
+                      {getProgress.hashtag.map((skill, idx) => (
+                        <div
+                          key={idx}
+                          className="ProgressModal-bottom-right-hash-container-item"
+                        >
+                          <span>{skill}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                  <span className="name">{getProgress.writer}</span>
                 </div>
               </div>
-              <span className="name">정성훈</span>
+            </div>
+          )}
+        </Modal>
+      ) : (
+        <Modal showMoreProgress={showMoreProgress}>
+          <div className="ProgressModal">
+            <div className="center">
+              <ReactLoading
+                type={"cubes"}
+                color={"#000000"}
+                height={"10%"}
+                width={"10%"}
+              />
             </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </>
   );
 };
