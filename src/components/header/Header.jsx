@@ -1,4 +1,5 @@
 import Modal from 'components/header/logModal/LogModal';
+import { checkIsLogin } from 'lib/requestApi';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import "./Header.scss";
@@ -10,6 +11,7 @@ const activeStyle = {
 }
 
 const Header = () => {
+    const [isLogin, setIsLogin] = useState(false);
     const [modal, setModal] = useState(false);
     const [open, setOpen] = useState(false);
     
@@ -23,13 +25,12 @@ const Header = () => {
 
     useEffect(() => {
         window.addEventListener("click", ClickHandle);
+        checkIsLogin().then(isLogin => { setIsLogin(isLogin) });
 
         return () => {
             window.removeEventListener("click", ClickHandle);
         }
     })
-
-    const isLogin = true;
     
 
     return (
@@ -47,13 +48,13 @@ const Header = () => {
             </NavLink>
             <div></div>
             {isLogin ? 
-                <div className="user-wrap header-item" onClick={() => setOpen(open => !open)}>
-                    <img src="" className="user-img" />
-                    <p className="user-name">{"유시온"}</p>
-                </div> : 
-                <button onClick={() => {setModal(true)}} className="header-login-btn header-item">
-                    로그인
-                </button>}
+            (<div className="user-wrap header-item" onClick={() => setOpen(open => !open)}>
+                <img src="" className="user-img" />
+                <p className="user-name">{"유시온"}</p>
+            </div>) : 
+            (<button onClick={() => {setModal(true)}} className="header-login-btn header-item">
+                로그인
+            </button>)}
             {modal && <Modal modal={modal} setModal={setModal} />}
             {open && <UserProfile />}
         </div>
