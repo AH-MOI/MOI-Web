@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import "./Header.scss";
 import UserProfile from './userProfile/UserProfile';
-
+import PNG from "../../assets/images/CutyApple.png"
 const activeStyle = {
     color: "#ffffff",
     fontSize: "18px"
@@ -18,6 +18,7 @@ const Header = () => {
         github: "",
         hashtag: "",
         id: "",
+        introduce: "",
         name: "",
         phoneNumber: "",
         profile: "",
@@ -84,7 +85,7 @@ const Header = () => {
             <div></div>
             {isLogin ? 
             (<div className="user-wrap header-item" onClick={() => setOpen(open => !open)}>
-                <img src="" className="user-img" />
+                <div className="user-img"></div>
                 <p className="user-name">{userInfo.name}</p>
             </div>) : 
             (<button onClick={() => {setModal(true)}} className="header-login-btn header-item">
