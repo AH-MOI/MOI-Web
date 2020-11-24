@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./MainSelectBoxItem.scss";
 
 const MainSelectBoxItem = ({
-  menu,
-  selectedMenu,
-  setSelectedMenu,
-  removeSelectedMenu,
+  item,
+  selectedItem,
+  setSelectedItem,
+  removeSelectedItem,
 }) => {
   const findSelectedMenu = () => {
-    if (selectedMenu.find((item) => item === menu)) {
+    if (selectedItem.find((_item) => _item === item)) {
       return true;
     }
     return false;
@@ -22,8 +22,8 @@ const MainSelectBoxItem = ({
         className="Main-Select-Box-Item"
         onClick={() => {
           check
-            ? removeSelectedMenu(menu)
-            : setSelectedMenu([...selectedMenu, menu]);
+            ? removeSelectedItem(item)
+            : setSelectedItem([...selectedItem, item]);
           setCheck(!check);
         }}
       >
@@ -34,7 +34,7 @@ const MainSelectBoxItem = ({
           readOnly
         />
         <label className="Main-Select-Box-Item-Label" />
-        <span className="Main-Select-Box-Item-Name">{menu}</span>
+        <span className="Main-Select-Box-Item-Name">{item}</span>
       </div>
     </>
   );

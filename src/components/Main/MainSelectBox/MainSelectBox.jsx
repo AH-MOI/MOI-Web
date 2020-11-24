@@ -3,7 +3,7 @@ import "./MainSelectBox.scss";
 import MainSelectBoxItem from "./MainSelectBoxItem/MainSelectBoxItem";
 
 const MainSelectBox = ({
-  selectMenu,
+  menu,
   setShow,
   selectedMenu,
   setSelectedMenu,
@@ -32,13 +32,13 @@ const MainSelectBox = ({
   return (
     <>
       <div className="Main-Select-Box">
-        {selectMenu.map((menu, idx) => (
+        {menu.map((item, idx) => (
           <MainSelectBoxItem
             key={idx}
-            menu={menu}
-            selectedMenu={selectedMenu}
-            setSelectedMenu={setSelectedMenu}
-            removeSelectedMenu={removeSelectedMenu}
+            item={item}
+            selectedItem={selectedMenu}
+            setSelectedItem={setSelectedMenu}
+            removeSelectedItem={removeSelectedMenu}
           />
         ))}
       </div>
