@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import NotFoundPage from "../pages/NotFoundPage";
 import MainPage from "../pages/MainPage";
 import ProgressPage from "pages/ProgressPage";
@@ -9,6 +11,7 @@ import WriteContainer from "containers/Write/WriteContainer";
 const App = () => {
   return (
     <div className="App">
+      <ToastContainer />
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/progress" component={ProgressPage} />
