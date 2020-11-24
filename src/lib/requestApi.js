@@ -13,7 +13,7 @@ export const methodType = {
 	PATCH: 'patch',
 };
 
-const ACCESS_TOKEN_NAME = 'Authorization';
+export const ACCESS_TOKEN_NAME = 'Authorization';
 
 export const ACCESS_TOKEN = 'accessToken';
 export const REFRESH_TOKEN = 'refreshToken';
