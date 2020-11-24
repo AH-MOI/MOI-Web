@@ -1,7 +1,6 @@
 @import "../../../../util/color.scss";
-@import "../../../../util/lib.scss";
 
-.Main-Select-Box-Item {
+.Dev-Select-Box-Item {
   display: flex;
   align-items: center;
   color: $gray;
@@ -32,10 +31,6 @@
     &::before {
       content: "";
     }
-  }
-
-  &-Name {
-    @include ellipsis(1);
   }
 
   &-CheckBox {

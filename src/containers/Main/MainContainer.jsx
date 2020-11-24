@@ -4,8 +4,14 @@ import Main from "components/Main/Main";
 
 const MainContainer = () => {
   const [search, setSearch] = useState("");
+
   const [show, setShow] = useState(false);
+  const [showLang, setShowLang] = useState(false);
+  const [showSchool, setShowSchool] = useState(false);
+
   const [selectedMenu, setSelectedMenu] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState([]);
+  const [selectedSchool, setSelectedSchool] = useState("");
 
   const removeSelectedMenu = (menu) => {
     let array = [...selectedMenu];
@@ -14,7 +20,18 @@ const MainContainer = () => {
     setSelectedMenu(array);
   };
 
-  const initSelectedMenu = () => setSelectedMenu([]);
+  const removeSelectedLanguage = (language) => {
+    let array = [...selectedLanguage];
+    const index = array.indexOf(language);
+    array.splice(index, 1);
+    setSelectedLanguage(array);
+  };
+
+  const initSelectedList = () => {
+    setSelectedMenu([]);
+    setSelectedLanguage([]);
+    setSelectedSchool("");
+  };
 
   return (
     <>
@@ -22,10 +39,19 @@ const MainContainer = () => {
         setSearch={setSearch}
         show={show}
         setShow={setShow}
+        showLang={showLang}
+        setShowLang={setShowLang}
+        showSchool={showSchool}
+        setShowSchool={setShowSchool}
         selectedMenu={selectedMenu}
         setSelectedMenu={setSelectedMenu}
+        selectedLanguage={selectedLanguage}
+        setSelectedLanguage={setSelectedLanguage}
+        selectedSchool={selectedSchool}
+        setSelectedSchool={setSelectedSchool}
         removeSelectedMenu={removeSelectedMenu}
-        initSelectedMenu={initSelectedMenu}
+        removeSelectedLanguage={removeSelectedLanguage}
+        initSelectedList={initSelectedList}
       />
     </>
   );
