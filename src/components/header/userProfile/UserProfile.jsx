@@ -1,24 +1,47 @@
+import { INFO } from 'lib/requestUrl';
+import { ACCESS_TOKEN, ACCESS_TOKEN_NAME, BASE_URL_LIST, checkIsLogin, methodType, requestApiWithoutBodyWithToken, Logout   , requestApiWithBodyWithToken } from 'lib/requestApi';  
 import React, { useCallback, useEffect, useState } from 'react';
 import "./UserProfile.scss";
 
 const UserProfile = (props) => {
-    const { userInfo } = props;
+    const {userInfo: info }=  props;
+    const [userInfo, setUserInfo] = useState({
+        area: info.area,
+        birthday: info.birthday,
+        github: info.github,
+        hashtag: info.hashtag,
+        id: info.id,
+        name: info.name,
+        phoneNumber: info.phoneNumber,
+        profile: info.profile,
+        school: info.school,
+        star: info.star
+    })
 
     const [modal, setModal] = useState(false);
     const [modify, setModify] = useState(false);
-    const [tel, setTel] = useState(userInfo.phoneNumber);
-    const [git, setGit] = useState(userInfo.github);
-    const [field, setFiled] = useState(userInfo.area);
-    const [stack, setStack] = useState(userInfo.hashTag);
-    const [initState, setInitState] = useState({tel, git, field, stack});
+    const [initState, setInitState] = useState({area: userInfo.area, github: userInfo.github, hashTag: userInfo.github, phoneNumber: userInfo.phoneNumber, profile: userInfo.profile});
 
     useEffect(() => {
         try {
             
+            const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
+            const res = requestApiWithoutBodyWithToken(BASE_URL_LIST.BLUE, methodType.GET, INFO.getUserInfo(), {
+                headers: {
+                    [ACCESS_TOKEN_NAME]: accessToken
+                }
+            })
+
+            res.then(res => { setUserInfo({...res.data})});
+
         } catch (err) {
             console.log(err);
         }
-    }, [])
+    }, []);
+
+    const onUserInfoChange = useCallback((name, e) => {
+        setUserInfo({ ...userInfo, [name]: e.target.value });
+    }, [userInfo]);
 
     const showModal = useCallback(() => {
         setModal(true);
@@ -28,44 +51,32 @@ const UserProfile = (props) => {
         setModal(false);
     }, [modal])
 
-    const onTelChange = useCallback((e) => {
-        setTel(e.target.value);
-    }, [tel])
-
-    const onGitChange = useCallback((e) => {
-        setGit(e.target.value);
-    }, [git]);
-
-    const onFieldChange = useCallback((e) => {
-        setFiled(e.target.value);
-    }, [field])
-
-    const onStackChange = useCallback((e) => {
-        setStack(e.target.value);
-    }, [stack]);
+    console.log(userInfo);  
     
-    const onSaveClick = useCallback(() => {
+    const onSaveClick = async() => {
         try{
+            const ress = await requestApiWithBodyWithToken(BASE_URL_LIST.BLUE, methodType.PATCH, INFO.putStd(), {
+                area: userInfo.area,
+                github: userInfo.github,
+                profile: userInfo.profile,
+                hashtag: userInfo.hashtag,
+                phoneNumber: userInfo.phoneNumber,
+            })
+
             alert("저장되었습니다.");
             setModify(false);
-            setInitState(tel, git, field, stack);
+            
+            setInitState({area: userInfo.area, github: userInfo.github, hashTag: userInfo.github, phoneNumber: userInfo.phoneNumber, profile: userInfo.profile});
+            
         } catch {
             alert("저장에 실패했습니다.")
         }
-    }, [modify]);
-
-    const logout = () => {
-        alert("로그아웃되었습니다.")
-        dropModal();
-    }
+    };
 
     const onSaveCancleClick = useCallback(() => {
-        setTel(initState.tel);
-        setGit(initState.git);
-        setFiled(initState.field);
-        setStack(initState.stack);
+        setUserInfo({ ...userInfo, ...initState });
         setModify(!modify);
-    }, [tel, git, field, stack, modify])
+    }, [userInfo])
 
     const onModifyClick = useCallback(() => {
         setModify(!modify);
@@ -100,22 +111,22 @@ const UserProfile = (props) => {
                     <label htmlFor="">연락 정보</label>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>전화번호</span>
-                        <input type="tel" value={tel} onChange={onTelChange} placeholder="전화번호를 입력하세요"/>
+                        <input type="tel" value={userInfo.phoneNumber} onChange={(e) => onUserInfoChange("phoneNumber",e )} placeholder="전화번호를 입력하세요"/>
                     </div>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>Github</span>
-                        <input type="url" value={git} onChange={onGitChange} placeholder="깃허브 주소를 입력하세요."/>
+                        <input type="url" value={userInfo.github} onChange={(e) => onUserInfoChange("github",e )} placeholder="깃허브 주소를 입력하세요."/>
                     </div>
                 </div>
                 <div className="user-modal-wrap major-wrap">
                     <label htmlFor="">전공</label>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>분야</span>
-                        <input type="text" value={field} onChange={onFieldChange} placeholder="전공분야를 입력하세요." />
+                        <input type="text" value={userInfo.area} onChange={(e) => onUserInfoChange("area",e )} placeholder="전공분야를 입력하세요." />
                     </div>
                     <div className="modifiable-user-modal-item-wrap user-modal-item-wrap">
                         <span>기술스택</span>
-                        <input type="text" value={stack} onChange={onStackChange} placeholder="기술스택을 입력하세요" />
+                        <input type="text" value={userInfo.hashtag} onChange={(e) => onUserInfoChange("hashtag",e )} placeholder="기술스택을 입력하세요" />
                     </div>
                 </div>
                 <div className="footer">
@@ -149,22 +160,22 @@ const UserProfile = (props) => {
                     <label htmlFor="">연락 정보</label>
                     <div className="user-modal-item-wrap">
                         <span>전화번호</span>
-                        <span>{tel}</span>
+                        <span>{userInfo.phoneNumber}</span>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>Github</span>
-                        <a href={git}>{git}</a>
+                        <a href={userInfo.github}>{userInfo.github}</a>
                     </div>
                 </div>
                 <div className="user-modal-wrap major-wrap">
                     <label htmlFor="">전공</label>
                     <div className="user-modal-item-wrap">
                         <span>분야</span>
-                        <span>{field}</span>
+                        <span>{userInfo.area}</span>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>기술스택</span>
-                        <span>{stack}</span>
+                        <span>{userInfo.hashtag}</span>
                     </div>
                 </div>
                 <div className="footer">
