@@ -7,9 +7,7 @@ const Modal = ({ children, showMoreProgress }) => {
     <div>
       <div
         className="background"
-        onClick={() => {
-          showMoreProgress();
-        }}
+        onClick={() => showMoreProgress()}
       ></div>
       {children}
     </div>
