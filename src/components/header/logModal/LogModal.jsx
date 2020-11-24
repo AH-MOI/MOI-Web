@@ -23,6 +23,18 @@ const LogModal = (props) => {
 
     const [logMode, setLogMode] = useState(true);
 
+    const onLogModeChange = useCallback(() => {
+        setLogMode(!logMode);
+        setLog({
+            id: "",
+            password: "",
+            confirmPassword: "",
+            name: "",
+            birthday: "",
+            school: ""
+        });
+    }, [logMode])
+
     const onSubmit = async(e) => {
         e.preventDefault();
 
@@ -38,6 +50,7 @@ const LogModal = (props) => {
 
                 alert("로그인에 성공했습니다.")
                 setModal(false);
+                window.location.href = window.location.href;
             } catch(err) {
                 switch (err.status) {
                     case 404: {
@@ -56,6 +69,15 @@ const LogModal = (props) => {
                     name: log.name,
                     birthday: log.birthday,
                     school: log.school
+                });
+
+                setLog({
+                    id: "",
+                    password: "",
+                    confirmPassword: "",
+                    name: "",
+                    birthday: "",
+                    school: ""
                 });
 
                 alert("회원가입에 성공했습니다.")
@@ -94,7 +116,7 @@ const LogModal = (props) => {
                     </div>
                     <div className="login-wrap register-text">
                         <span className="non-register">계정이 없으시다면?</span>
-                        <button className="register" onClick={() => {setLogMode(false)}}>회원가입</button>
+                        <button className="register" onClick={onLogModeChange}>회원가입</button>
                     </div>
                 </form> : 
                 <form className="modal-body" onSubmit={onSubmit}>
@@ -140,7 +162,7 @@ const LogModal = (props) => {
                     </div>
                     <div className="login-wrap register-text">
                         <span className="non-register">계정이 있으시다면?</span>
-                        <button className="register" onClick={() => {setLogMode(true)}}>로그인</button>
+                        <button className="register" onClick={onLogModeChange}>로그인</button>
                     </div>
                 </form>
                 }
