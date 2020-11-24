@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import NotFoundPage from "../pages/NotFoundPage";
 import MainPage from "../pages/MainPage";
 import ProgressPage from "pages/ProgressPage";
-import DevFindPage from '../pages/DevFindPage';
+import DevFindPage from "pages/DevFindPage";
 import WriteContainer from "containers/Write/WriteContainer";
 
 const App = () => {
