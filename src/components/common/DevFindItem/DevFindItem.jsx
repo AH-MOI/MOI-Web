@@ -1,12 +1,12 @@
 import React from "react";
 import "./DevFindItem.scss";
 
-const DevFindItem = ({}) => {
+const DevFindItem = ({handleShow}) => {
   const MAX_SHOW_COUNT = 4;
   const techModel = ["Node", "Spring", "React", "ReactNative", "JS", "TS"];
   return (
     <>
-      <div className="Dev-Find-Item">
+      <div className="Dev-Find-Item" onClick={handleShow}>
         <div className="Dev-Find-Item-Profile">
           <div className="Dev-Find-Item-Profile-Image"></div>
         </div>

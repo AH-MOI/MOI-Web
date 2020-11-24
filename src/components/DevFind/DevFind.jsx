@@ -1,19 +1,21 @@
 import React from "react";
 import "./DevFind.scss";
 import { ReactComponent as Option } from "../../assets/images/option.svg";
-import DevProjectItem from "../common/DevFindItem";
+import DevFindItem from "../common/DevFindItem";
 import { ReactComponent as Search } from "../../assets/images/search.svg";
 import DevSelectBox from "./DevSelectBox";
 import { GrFormClose } from "react-icons/gr";
+import DevInfoContainer from "../../containers/DevInfo/DevInfoContainer";
 
 const Dev = ({
-  setSearch,
-  show,
-  setShow,
-  selectedMenu,
-  setSelectedMenu,
-  removeSelectedMenu,
-  initSelectedMenu,
+  // setSearch,
+  // show,
+  // setShow,
+  // selectedMenu,
+  // setSelectedMenu,
+  // removeSelectedMenu,
+  // initSelectedMenu
+  handleShow
 }) => {
   const selectMenu = [
     "프론트엔드",
@@ -26,6 +28,7 @@ const Dev = ({
 
   return (
     <>
+    <DevInfoContainer />
       <div className="Dev">
         <div className="Dev-Container">
           <div className="Dev-Container-Search">
@@ -42,13 +45,13 @@ const Dev = ({
               <div
                 className="Dev-Container-Search-Select-Career"
                 onClick={() => {
-                  setShow((prevState) => !prevState);
+                  // setShow((prevState) => !prevState);
                 }}
               >
                 <span>분야</span>
                 <Option />
               </div>
-              {show && (
+              {/* {show && (
                 <DevSelectBox
                   selectMenu={selectMenu}
                   setShow={setShow}
@@ -56,7 +59,7 @@ const Dev = ({
                   setSelectedMenu={setSelectedMenu}
                   removeSelectedMenu={removeSelectedMenu}
                 />
-              )}
+              )} */}
               <div className="Dev-Container-Search-Select-Language">
                 <span>개발 언어</span>
                 <Option />
@@ -68,7 +71,7 @@ const Dev = ({
             </div>
           </div>
           <div className="Dev-Container-HashTags">
-            {selectedMenu.map((menu, idx) => (
+            {/* {selectedMenu.map((menu, idx) => (
               <div key={idx} className="Dev-Container-HashTags-Item">
                 <span>{menu}</span>
                 <GrFormClose onClick={() => removeSelectedMenu(menu)} />
@@ -81,20 +84,11 @@ const Dev = ({
               >
                 모든 태그 초기화
               </div>
-            ) : null}
+            ) : null} */}
           </div>
           <span className="Dev-Container-Count">100개의 프로젝트</span>
           <div className="Dev-Container-Projects">
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
-            <DevProjectItem />
+            <DevFindItem handleShow={handleShow}/>
           </div>
         </div>
       </div>
