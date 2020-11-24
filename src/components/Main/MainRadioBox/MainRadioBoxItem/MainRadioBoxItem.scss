@@ -1,7 +1,6 @@
 @import "../../../../util/color.scss";
-@import "../../../../util/lib.scss";
 
-.Main-Select-Box-Item {
+.Main-Radio-Box-Item {
   display: flex;
   align-items: center;
   color: $gray;
@@ -14,6 +13,7 @@
     color: $dark-gray;
     & > label {
       border: 0.125rem solid $dark-gray;
+      background-color: $dark-gray;
     }
   }
 
@@ -21,11 +21,11 @@
     cursor: pointer;
     position: relative;
     border: 0.125rem solid $light-gray;
-    border-radius: 0.25rem;
-    width: 1.1rem;
-    height: 1.1rem;
-    min-width: 1.1rem;
-    max-width: 1.1rem;
+    border-radius: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    min-width: 1.2rem;
+    max-width: 1.2rem;
     background-color: transparent;
     margin-right: 0.4rem;
 
@@ -34,33 +34,26 @@
     }
   }
 
-  &-Name {
-    @include ellipsis(1);
-  }
-
-  &-CheckBox {
+  &-Radio {
     display: none !important;
     position: relative;
     width: 0.9rem;
     height: 0.9rem;
   }
 
-  &-CheckBox:checked ~ &-Name {
+  &-Radio:checked ~ &-Name {
     color: $dark-gray;
   }
 
-  &-CheckBox:checked ~ &-Label {
-    background-color: $dark-gray;
-    border: none;
+  &-Radio:checked ~ &-Label {
+    background-color: $white;
+    border: 0.4rem solid $dark-gray;
 
     &::before {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 0.8rem;
-      color: white;
-      content: "\2713";
+      content: "";
+      width: 0.1rem;
+      height: 0.1rem;
+      border-radius: 50%;
     }
   }
 }
