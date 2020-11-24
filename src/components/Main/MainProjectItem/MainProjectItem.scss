@@ -3,16 +3,24 @@
 
 .Main-Project-Item {
   display: flex;
-  width: 36rem;
+  width: 38.5rem;
   border-radius: 0.4rem;
   padding: 0.6rem 1.6rem 0.6rem 0.6rem;
-  background-color: #ffffff;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
+  border: 0.12rem $v-light-gray solid;
+  background-color: $white;
+  //   box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.15);
+  margin: 1rem;
   cursor: pointer;
+  transition: all ease 0.2s;
+
+  &:hover {
+    border: 0.12rem $light-gray solid;
+    transform: translateY(-0.5rem);
+  }
 
   &-Thumbnail {
     position: relative;
-    padding: 30% 0 0 30%;
+    padding: 35% 0 0 35%;
     margin-right: 1rem;
 
     &-Image {
@@ -31,21 +39,67 @@
   &-Info {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 0.4rem 0;
 
-    &-Title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-      color: $dark-gray;
-      @include ellipsis(1);
+    &-Content {
+      display: flex;
+      flex-direction: column;
+
+      &-Title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+        color: $dark-gray;
+        @include ellipsis(1);
+      }
+
+      &-Description {
+        color: $gray;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+        @include ellipsis(2);
+      }
+
+      &-Tech {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+
+        &-Tag {
+          background-color: $vv-light-gray;
+          padding: 0.2rem 0.7rem;
+          border-radius: 0.2rem;
+          font-size: 0.8rem;
+          color: $dark-gray;
+          margin: 0 0.4rem 0.4rem 0;
+        }
+      }
     }
 
-    &-Description {
-      color: $gray;
-      font-size: 0.9rem;
-      font-weight: 500;
-      @include ellipsis(2);
+    &-Bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.2rem 0;
+
+      &-Writer {
+        color: $gray;
+        font-size: 0.9rem;
+
+        & > span {
+          color: $dark-gray;
+          font-weight: 600;
+          font-size: 0.9rem;
+        }
+      }
+
+      &-Date {
+        color: $light-gray;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
     }
   }
 }
