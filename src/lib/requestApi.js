@@ -2,8 +2,8 @@ import axios from 'axios';
 import { AUTH } from './requestUrl';
 
 export const BASE_URL_LIST = {
-	RED: 'http://172.30.1.36:8000',
-	BLUE: 'http://172.30.1.24:8888',
+	RED: 'http://192.168.43.101:8000',
+	BLUE: 'http://192.168.43.31:8888',
 };
 
 export const methodType = {
@@ -13,7 +13,7 @@ export const methodType = {
 	PATCH: 'patch',
 };
 
-const ACCESS_TOKEN_NAME = 'Authorization';
+export const ACCESS_TOKEN_NAME = 'Authorization';
 
 export const ACCESS_TOKEN = 'accessToken';
 export const REFRESH_TOKEN = 'refreshToken';
@@ -27,7 +27,9 @@ export const requestApiWithBodyWithoutToken = async (
 ) => {
 	try {
 		const res = await axios[method](BASE_URL + url, body, {
-			...header,
+			headers: {
+				...header,
+			},
 		});
 
 		return res;
@@ -44,7 +46,9 @@ export const requestApiWithoutBodyWithoutToken = async (
 ) => {
 	try {
 		const res = await axios[method](BASE_URL + url, {
-			...header,
+			headers: {
+				...header,
+			},
 		});
 
 		return res;
@@ -63,12 +67,16 @@ export const requestApiWithoutBodyWithToken = async (
 		const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
 
 		const res = await axios[method](BASE_URL + url, {
-			[ACCESS_TOKEN_NAME]: accessToken,
-			...header,
+			headers: {
+				[ACCESS_TOKEN_NAME]: accessToken,
+				...header,
+			},
 		});
 
 		return res;
 	} catch (error) {
+		console.log(error.response);
+
 		throw error.response;
 	}
 };
@@ -84,13 +92,37 @@ export const requestApiWithBodyWithToken = async (
 		const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
 
 		const res = await axios[method](BASE_URL + url, body, {
-			[ACCESS_TOKEN_NAME]: accessToken,
-			...header,
+			headers: {
+				[ACCESS_TOKEN_NAME]: accessToken,
+				...header,
+			},
 		});
 
 		return res;
 	} catch (error) {
+		console.log(error.response);
+
 		throw error.response;
+	}
+};
+
+export const requestRefresh = async () => {
+	try {
+		const refreshToken = window.localStorage.getItem(REFRESH_TOKEN);
+		const res = await requestApiWithoutBodyWithToken(
+			BASE_URL_LIST.BLUE + AUTH.getAcToken(),
+			{
+				[ACCESS_TOKEN_NAME]: refreshToken,
+			},
+		);
+		window.localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
+		window.location.href = window.location.href;
+	} catch (err) {
+		if (err === 403 || err.response.status === 403) {
+			alert('인증이 만료되어 재인증이 필요합니다.');
+			window.localStorage.clear();
+			window.location.href = '/';
+		}
 	}
 };
 
