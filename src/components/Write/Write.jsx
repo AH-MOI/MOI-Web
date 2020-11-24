@@ -1,96 +1,101 @@
 import React from "react";
+import { GrFormClose } from "react-icons/gr";
 import "./Write.scss";
-import Modal from "components/common/Modal/Modal";
-import WritePersonAdd from "./WritePersonAdd/WritePersonAdd";
-import { toast } from "react-toastify";
+import { ReactComponent as Option } from "../../assets/images/option.svg";
+import DatePicker from "react-datepicker";
+import { ko } from "date-fns/esm/locale";
+import "react-datepicker/dist/react-datepicker.css";
+import WriteSelectBox from "./WriteSelectBox/WriteSelectBox";
+import techs from "../../models/techs";
 
 const Write = ({
-  modal,
-  showWriteModal,
+  tag,
+  setTag,
+  keyPressListener,
+  hashTag,
+  removeHashTag,
+  setTitle,
+  setContent,
   date,
   setDate,
-  content,
-  setContent,
-  handleCreateProject,
-  hashTag,
-  setHashTag,
-  title,
-  setTitle,
-  setChangeIdx,
+  selectedItem,
+  setSelectedItem,
+  removeSelectedItem,
+  show,
+  setShow,
 }) => {
   return (
-    <div className="Write">
-      {modal ? (
-        <>
-          <Modal showMoreProgress={showWriteModal}>
-            <div className="WriteModal">
-              <input
-                className="WriteModal-title"
-                placeholder="제목"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+    <>
+      <div className="Write">
+        <div className="Write-Container">
+          <input
+            type="text"
+            className="Write-Container-Title"
+            placeholder="제목을 입력해주세요"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <div className="Write-Container-HashTag">
+            <div className="Write-Container-HashTag-Show">
+              {hashTag.map((value, idx) => (
+                <div key={idx} className="Write-Container-HashTag-Show-Item">
+                  <span>{value}</span>
+                  <GrFormClose onClick={() => removeHashTag(value)} />
+                </div>
+              ))}
+            </div>
+            <input
+              value={tag}
+              type="text"
+              className="Write-Container-HashTag-Insert"
+              placeholder="태그를 입력해주세요"
+              onChange={(e) => setTag(e.target.value)}
+              onKeyPress={(e) => keyPressListener(e)}
+            />
+          </div>
+          <textarea
+            type="text"
+            className="Write-Container-Content"
+            placeholder="내용을 입력해주세요"
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <div className="Write-Container-Info">
+            <div className="Write-Container-Info-Date">
+              <p>날짜 선택</p>
+              <DatePicker
+                locale={ko}
+                dateFormat="yyyy-MM-dd"
+                className="Write-Container-Info-Date-Picker"
+                minDate={new Date()}
+                closeOnScroll={true}
+                placeholderText="날짜를 선택해주세요"
+                selected={date}
+                onChange={(_date) => setDate(_date)}
               />
-              <div className="WriteModal-middle">
-                <div className="WriteModal-middle-img"></div>
-                <textarea
-                  className="WriteModal-middle-content"
-                  placeholder="내용을 입력해 주세요"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                />
-              </div>
-              <div className="WriteModal-hashtag">
-                <input
-                  placeholder="해쉬태그를 입력해주세요"
-                  value={hashTag}
-                  onChange={(e) => setHashTag(e.target.value)}
-                />
-              </div>
-              <div className="WriteModal-bottom">
-                <span className="WriteModal-bottom-lastDay">마감날짜</span>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="WriteModal-bottom-calendar"
-                />
-                <div className="WritePersonAdd">
-                  <span className="WritePersonAdd-title">인원</span>
-                  <div className="overflow">
-                    <WritePersonAdd setChangeIdx={setChangeIdx} />
-                  </div>
-                </div>
-                <div className="WriteModal-bottom-button">
-                  <div className="WriteModal-bottom-button-personAdd">
-                    <span>+</span>
-                  </div>
-                  <div
-                    className="WriteModal-bottom-button-create"
-                    onClick={() => handleCreateProject()}
-                  >
-                    <span>만들기</span>
-                  </div>
-                </div>
+            </div>
+            <div className="Write-Container-Info-Member">
+              <p>인원 설정</p>
+              <div
+                className="Write-Container-Info-Member-Select"
+                onClick={() => setShow(true)}
+              >
+                <span>기술 스택</span>
+                <Option />
+                {show && (
+                  <WriteSelectBox
+                    item={techs}
+                    setShow={setShow}
+                    selectedItem={selectedItem}
+                    setSelectedItem={setSelectedItem}
+                    removeSelectedItem={removeSelectedItem}
+                  />
+                )}
               </div>
             </div>
-          </Modal>
-        </>
-      ) : (
-        <></>
-      )}
-      <div
-        className="WriteButton"
-        onClick={() => {
-          // showWriteModal();
-          toast.success("아이씻팔");
-        }}
-      >
-        <span>작성하기</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
-
-Write.propTypes = {};
 
 export default Write;
