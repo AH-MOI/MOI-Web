@@ -6,7 +6,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import MainPage from "../pages/MainPage";
 import ProgressPage from "pages/ProgressPage";
 import DevFindPage from "pages/DevFindPage";
-import WriteContainer from "containers/Write/WriteContainer";
+import WritePage from "pages/WritePage";
 
 const App = () => {
   return (
@@ -16,10 +16,10 @@ const App = () => {
         <Route exact path="/" component={MainPage} />
         <Route exact path="/progress" component={ProgressPage} />
         <Route exact path="/devFind" component={DevFindPage} />
+        <Route path="/write" component={WritePage} />
         <Route component={NotFoundPage} />
         <Redirect to="/notfound" />
       </Switch>
-      <WriteContainer />
     </div>
   );
 };
