@@ -26,7 +26,7 @@ const MainProjectItem = ({ project }) => {
               {tags.map((tech, idx) => (
                 <>
                   {idx < MAX_SHOW_COUNT && (
-                    <div className="Main-Project-Item-Info-Content-Tech-Tag">
+                    <div className="Main-Project-Item-Info-Content-Tech-Tag" key={idx}>
                       {tech}
                     </div>
                   )}

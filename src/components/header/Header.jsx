@@ -40,9 +40,9 @@ const Header = () => {
             <NavLink to={"/"} className="header-link header-item" activeStyle={activeStyle}>
                 프로젝트 찾기
             </NavLink>            
-            <NavLink to={"/1"} className="header-link header-item" activeStyle={activeStyle}>
+            <NavLink to={"/devFind"} className="header-link header-item" activeStyle={activeStyle}>
                 개발자 찾기
-            </NavLink>            
+            </NavLink>
             <NavLink to={"/2"} className="header-link header-item" activeStyle={activeStyle}>
                 프로젝트 현황
             </NavLink>
