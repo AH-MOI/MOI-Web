@@ -4,6 +4,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import MainPage from "../pages/MainPage";
 import ProgressPage from "pages/ProgressPage";
 import DevFindPage from '../pages/DevFindPage';
+import WriteContainer from "containers/Write/WriteContainer";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route component={NotFoundPage} />
         <Redirect to="/notfound" />
       </Switch>
+      <WriteContainer />
     </div>
   );
 };
