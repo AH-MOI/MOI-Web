@@ -13,7 +13,7 @@ export const methodType = {
 	PATCH: 'patch',
 };
 
-const ACCESS_TOKEN_NAME = 'Authorization';
+export const ACCESS_TOKEN_NAME = 'Authorization';
 
 export const ACCESS_TOKEN = 'accessToken';
 export const REFRESH_TOKEN = 'refreshToken';
@@ -27,7 +27,9 @@ export const requestApiWithBodyWithoutToken = async (
 ) => {
 	try {
 		const res = await axios[method](BASE_URL + url, body, {
-			...header,
+			headers: {
+				...header,
+			},
 		});
 
 		return res;
@@ -44,7 +46,9 @@ export const requestApiWithoutBodyWithoutToken = async (
 ) => {
 	try {
 		const res = await axios[method](BASE_URL + url, {
-			...header,
+			headers: {
+				...header,
+			},
 		});
 
 		return res;
@@ -63,12 +67,16 @@ export const requestApiWithoutBodyWithToken = async (
 		const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
 
 		const res = await axios[method](BASE_URL + url, {
-			[ACCESS_TOKEN_NAME]: accessToken,
-			...header,
+			headers: {
+				[ACCESS_TOKEN_NAME]: accessToken,
+				...header,
+			},
 		});
 
 		return res;
 	} catch (error) {
+		console.log(error.response);
+
 		throw error.response;
 	}
 };
@@ -84,12 +92,16 @@ export const requestApiWithBodyWithToken = async (
 		const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
 
 		const res = await axios[method](BASE_URL + url, body, {
-			[ACCESS_TOKEN_NAME]: accessToken,
-			...header,
+			headers: {
+				[ACCESS_TOKEN_NAME]: accessToken,
+				...header,
+			},
 		});
 
 		return res;
 	} catch (error) {
+		console.log(error.response);
+
 		throw error.response;
 	}
 };
