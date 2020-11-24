@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, ACCESS_TOKEN_NAME, BASE_URL_LIST, checkIsLogin, Logout, methodType, requestApiWithoutBodyWithToken } from 'lib/requestApi';
+import { ACCESS_TOKEN, ACCESS_TOKEN_NAME, BASE_URL_LIST, checkIsLogin, methodType, requestApiWithoutBodyWithToken } from 'lib/requestApi';
 import { INFO } from 'lib/requestUrl';
 import Modal from 'components/header/logModal/LogModal';
 import React, { useEffect, useRef, useState } from 'react';
@@ -30,16 +30,29 @@ const Header = () => {
     
     const dropRef = useRef();
 
-    const ClickHandle = (event) => {
-        if (!event.target.closest(`.${dropRef.current.className}`) && open) {
-            setOpen(false);
+    function handleClick(e) {
+        if (!e.target.closest(`.${dropRef.current.className}`) && open) {
+          setOpen(false);
+
+          const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
+          const res = requestApiWithoutBodyWithToken(BASE_URL_LIST.BLUE, methodType.GET, INFO.getUserInfo(), {
+            headers: {
+                [ACCESS_TOKEN_NAME]: accessToken
+            }
+        })
+
+        res.then(res => { setUserInfo({...res.data})});
         }
       }
 
-    console.log(userInfo)
+      useEffect(() => {
+        document.addEventListener("click", handleClick);
+        return () => {
+          document.removeEventListener("click", handleClick);
+        };
+      });
 
     useEffect(() => {
-        window.addEventListener("click", ClickHandle);
         checkIsLogin().then(isLogin => { 
             setIsLogin(isLogin);  
         });
@@ -51,11 +64,7 @@ const Header = () => {
             }
         })
 
-        res.then(res => {console.log(res); setUserInfo({...res.data})});
-
-        return () => {
-            window.removeEventListener("click", ClickHandle);
-        }
+        res.then(res => {setUserInfo({...res.data})});
     }, [])
     
 
