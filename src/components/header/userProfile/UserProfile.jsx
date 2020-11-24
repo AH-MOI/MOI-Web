@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { Logout } from 'lib/requestApi';
 import React, { useCallback, useEffect, useState } from 'react';
 import "./UserProfile.scss";
 
@@ -12,7 +13,7 @@ const UserProfile = () => {
     const [initState, setInitState] = useState({tel, git, field, stack});
 
     useEffect(()=>{
-        // Axios.get("https://BASEURL:8888/")
+        // Axios.get("https://localhost:8888/")
     }, [])
 
     const showModal = useCallback(() => {
@@ -172,7 +173,7 @@ const UserProfile = () => {
                     <div className="save-cancle-modal">
                         <p className="save-cancle-modal-text">정말 로그아웃하시겠습니까?</p>
                         <div className="save-cancle-button-wrap">
-                            <button onClick={logout}>네</button>
+                            <button onClick={Logout}>네</button>
                             <button onClick={dropModal}>아니요</button>
                         </div>
                     </div>
