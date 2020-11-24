@@ -1,19 +1,23 @@
-import Axios from 'axios';
-import { Logout } from 'lib/requestApi';
 import React, { useCallback, useEffect, useState } from 'react';
 import "./UserProfile.scss";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
+    const { userInfo } = props;
+
     const [modal, setModal] = useState(false);
     const [modify, setModify] = useState(false);
-    const [tel, setTel] = useState("010-0000-0000");
-    const [git, setGit] = useState("https://github.com/cutyapple");
-    const [field, setFiled] = useState("Frontend");
-    const [stack, setStack] = useState("#React");
+    const [tel, setTel] = useState(userInfo.phoneNumber);
+    const [git, setGit] = useState(userInfo.github);
+    const [field, setFiled] = useState(userInfo.area);
+    const [stack, setStack] = useState(userInfo.hashTag);
     const [initState, setInitState] = useState({tel, git, field, stack});
 
-    useEffect(()=>{
-        // Axios.get("https://localhost:8888/")
+    useEffect(() => {
+        try {
+            
+        } catch (err) {
+            console.log(err);
+        }
     }, [])
 
     const showModal = useCallback(() => {
@@ -42,7 +46,6 @@ const UserProfile = () => {
     
     const onSaveClick = useCallback(() => {
         try{
-            
             alert("저장되었습니다.");
             setModify(false);
             setInitState(tel, git, field, stack);
@@ -81,17 +84,17 @@ const UserProfile = () => {
                     <div className="user-modal-grid">
                         <div className="user-modal-item-wrap">
                             <span>이름</span>
-                            <span>{"유시온"}</span>
+                            <span>{userInfo.name}</span>
                         </div>
                         <div className="user-modal-item-wrap">
                             <span>아이디</span>
-                            <span>{"cutyapple"}</span>
+                            <span>{userInfo.id}</span>
                         </div>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>학교</span>
-                        <span>{"대덕소프트웨어마이스터고등학교"}</span>
-                    </div>
+                        <span>{`${userInfo.school}소프트웨어마이스터고등학교`}</span>
+                    </div>  
                 </div>
                 <div className="user-modal-wrap contact-wrap">
                     <label htmlFor="">연락 정보</label>
@@ -130,16 +133,16 @@ const UserProfile = () => {
                     <div className="user-modal-grid">
                         <div className="user-modal-item-wrap">
                             <span>이름</span>
-                            <span>유시온</span>
+                            <span>{userInfo.name}</span>
                         </div>
                         <div className="user-modal-item-wrap">
                             <span>아이디</span>
-                            <span>cutyapple</span>
+                            <span>{userInfo.id}</span>
                         </div>
                     </div>
                     <div className="user-modal-item-wrap">
                         <span>학교</span>
-                        <span>대덕소프트웨어마이스터고등학교</span>
+                        <span>{`${userInfo.school}소프트웨어마이스터고등학교`}</span>
                     </div>
                 </div>
                 <div className="user-modal-wrap contact-wrap">
