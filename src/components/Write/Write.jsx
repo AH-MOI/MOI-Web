@@ -29,6 +29,7 @@ const Write = ({
                 />
               </div>
               <div className="WriteModal-bottom">
+                <span className="WriteModal-bottom-lastDay">마감날짜</span>
                 <input
                   type="date"
                   value={date}
@@ -41,8 +42,13 @@ const Write = ({
                     <WritePersonAdd />
                   </div>
                 </div>
-                <div className="WriteModal-bottom-personAdd">
-                  <span>+</span>
+                <div className="WriteModal-bottom-button">
+                  <div className="WriteModal-bottom-button-personAdd">
+                    <span>+</span>
+                  </div>
+                  <div className="WriteModal-bottom-button-create">
+                    <span onClick={() => {}}>만들기</span>
+                  </div>
                 </div>
               </div>
             </div>
