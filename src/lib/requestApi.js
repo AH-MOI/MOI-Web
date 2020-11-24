@@ -2,8 +2,8 @@ import axios from 'axios';
 import { AUTH } from './requestUrl';
 
 export const BASE_URL_LIST = {
-	RED: 'http://172.30.1.36:8000',
-	BLUE: 'http://172.30.1.24:8888',
+	RED: 'http://192.168.43.101:8000',
+	BLUE: 'http://192.168.43.31:8888',
 };
 
 export const methodType = {
