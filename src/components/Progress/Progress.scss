@@ -1,0 +1,57 @@
+/* your css code */
+.Progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 1305px;
+  max-width: 100%;
+  &-top {
+    &-title {
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+  }
+  &-bottom {
+    margin-top: 2rem;
+    &-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+    }
+  }
+}
+.project {
+  display: flex;
+  height: 28rem;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #919ba2;
+  }
+}
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
