@@ -1,5 +1,5 @@
 import React from "react";
-import DevFindContainer from "containers/DevFind/DevFindContainer";
+import DevFindContainer from "../containers/DevFind/DevFindContainer";
 
 const DevFindPage = () => {
   return (
