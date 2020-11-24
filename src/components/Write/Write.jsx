@@ -7,11 +7,16 @@ import { toast } from "react-toastify";
 const Write = ({
   modal,
   showWriteModal,
-  preview,
   date,
   setDate,
   content,
   setContent,
+  handleCreateProject,
+  hashTag,
+  setHashTag,
+  title,
+  setTitle,
+  setChangeIdx,
 }) => {
   return (
     <div className="Write">
@@ -19,7 +24,12 @@ const Write = ({
         <>
           <Modal showMoreProgress={showWriteModal}>
             <div className="WriteModal">
-              <input className="WriteModal-title" placeholder="제목" />
+              <input
+                className="WriteModal-title"
+                placeholder="제목"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
               <div className="WriteModal-middle">
                 <div className="WriteModal-middle-img"></div>
                 <textarea
@@ -27,6 +37,13 @@ const Write = ({
                   placeholder="내용을 입력해 주세요"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
+                />
+              </div>
+              <div className="WriteModal-hashtag">
+                <input
+                  placeholder="해쉬태그를 입력해주세요"
+                  value={hashTag}
+                  onChange={(e) => setHashTag(e.target.value)}
                 />
               </div>
               <div className="WriteModal-bottom">
@@ -40,15 +57,18 @@ const Write = ({
                 <div className="WritePersonAdd">
                   <span className="WritePersonAdd-title">인원</span>
                   <div className="overflow">
-                    <WritePersonAdd />
+                    <WritePersonAdd setChangeIdx={setChangeIdx} />
                   </div>
                 </div>
                 <div className="WriteModal-bottom-button">
                   <div className="WriteModal-bottom-button-personAdd">
                     <span>+</span>
                   </div>
-                  <div className="WriteModal-bottom-button-create">
-                    <span onClick={() => {}}>만들기</span>
+                  <div
+                    className="WriteModal-bottom-button-create"
+                    onClick={() => handleCreateProject()}
+                  >
+                    <span>만들기</span>
                   </div>
                 </div>
               </div>
