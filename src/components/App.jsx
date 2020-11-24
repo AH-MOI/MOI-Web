@@ -7,11 +7,13 @@ import MainPage from "../pages/MainPage";
 import ProgressPage from "pages/ProgressPage";
 import DevFindPage from "pages/DevFindPage";
 import WriteContainer from "containers/Write/WriteContainer";
+import HeaderContainer from "containers/Header/HeaderContainer";
 
 const App = () => {
   return (
     <div className="App">
       <ToastContainer />
+      <HeaderContainer />
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/progress" component={ProgressPage} />
