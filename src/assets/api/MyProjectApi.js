@@ -1,12 +1,18 @@
 import axios from "axios";
-import { SERVER_RED } from "../../config/config.json";
+import { SERVER_BLUE } from "../../config/config.json";
 
 class MyProjectAPI {
-  async GetDevInfo() {
+  async GetDevInfo(accessToken) {
     try {
-      const url = `${SERVER_RED}/info/student`;
+      const config = {
+        headers: {
+          Authorization: accessToken,
+        },
+      };
+      const url = `${SERVER_BLUE}/info/all-student`;
       const { data } = await axios.get(url);
 
+      //const {data} = await axios.get(url, config);
       return data;
     } catch (error) {
       console.log(error);
