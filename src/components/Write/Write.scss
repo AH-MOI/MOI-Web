@@ -7,6 +7,7 @@
   height: calc(100vh - 48px);
 
   &-Container {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -101,60 +102,109 @@
     }
 
     &-Info {
-      display: flex;
       height: 40%;
       background-color: $vv-light-gray;
       padding: 1rem 1.4rem;
-
-      &-Date {
+      &-top {
         display: flex;
-        flex-direction: column;
-        margin-right: 2rem;
+        height: 30%;
+        background-color: $vv-light-gray;
+        padding: 1rem 1rem;
 
-        & > p {
-          font-size: 1rem;
-          color: $dark-gray;
-          margin-bottom: 0.4rem;
+        &-Date {
+          display: flex;
+          flex-direction: column;
+          margin-right: 2rem;
+
+          & > p {
+            font-size: 1rem;
+            color: $dark-gray;
+            margin-bottom: 0.4rem;
+          }
+
+          &-Picker {
+            width: 10rem;
+            padding: 0.6rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            outline: none;
+            border-radius: 0.2rem;
+            background-color: $v-light-gray;
+            color: $dark-gray;
+          }
         }
 
-        &-Picker {
-          width: 10rem;
-          padding: 0.6rem;
-          font-size: 1rem;
-          font-weight: 600;
-          border: none;
-          outline: none;
-          border-radius: 0.2rem;
-          background-color: $v-light-gray;
-          color: $dark-gray;
+        &-Member {
+          & > p {
+            font-size: 1rem;
+            color: $dark-gray;
+            margin-bottom: 0.4rem;
+          }
+          &-Select {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 0.2rem;
+            font-weight: 600;
+            padding: 1rem 0.8rem;
+            background-color: $white;
+            cursor: pointer;
+            transition: all ease 0.2s;
+            position: relative;
+            width: 10rem;
+            height: 2.3rem;
+
+            &:hover {
+              background-color: $hover-gray;
+            }
+          }
         }
       }
 
-      &-Member {
-        & > p {
-          font-size: 1rem;
-          color: $dark-gray;
-          margin-bottom: 0.4rem;
-        }
-        &-Select {
+      &-hashTag {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+        &-selecMenu {
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          padding: 0.2rem 0.7rem;
           border-radius: 0.2rem;
+          font-size: 0.9rem;
           font-weight: 600;
-          padding: 1rem 0.8rem;
-          background-color: $white;
-          cursor: pointer;
-          transition: all ease 0.2s;
-          position: relative;
-          width: 10rem;
-          height: 2.3rem;
+          margin: 0 0.4rem 0.4rem 0;
+          background-color: $v-light-gray;
 
-          &:hover {
-            background-color: $hover-gray;
+          & > span {
+            margin-right: 0.2rem;
+          }
+
+          & > svg {
+            cursor: pointer;
           }
         }
       }
     }
+  }
+}
+.createButton {
+  bottom: 5%;
+  right: 5%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $v-light-gray;
+  color: black;
+  cursor: pointer;
+  width: 5rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  transition: 0.2s;
+  &:hover {
+    background: white;
+    color: black;
   }
 }

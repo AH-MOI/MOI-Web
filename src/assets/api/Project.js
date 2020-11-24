@@ -4,7 +4,7 @@ import axios from "axios";
 class Project {
   async GetProjects() {
     try {
-      const url = `${SERVER_BLUE}/project`;
+      const url = `${SERVER_RED}/project`;
       const { data } = await axios.get(url);
 
       return data;

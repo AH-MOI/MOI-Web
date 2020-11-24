@@ -6,6 +6,7 @@ import { ReactComponent as Search } from "../../assets/images/search.svg";
 import MainSelectBox from "./MainSelectBox";
 import { GrFormClose } from "react-icons/gr";
 import MainRadioBox from "./MainRadioBox/MainRadioBox";
+import { withRouter } from "react-router-dom";
 
 const Main = ({
   setSearch,
@@ -27,6 +28,7 @@ const Main = ({
   projects,
   loading,
   notFound,
+  history,
 }) => {
   // console.log(projects);
   const techs = [
@@ -164,10 +166,13 @@ const Main = ({
               <MainProjectItem key={idx} project={project} />
             ))}
           </div>
+          <button className="button" onClick={() => history.push("/write")}>
+            작성하기
+          </button>
         </div>
       </div>
     </>
   );
 };
 
-export default Main;
+export default withRouter(Main);

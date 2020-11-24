@@ -8,8 +8,6 @@ const MainProjectItem = ({ project, setIdx }) => {
   const tags = project.hashtag.split("#");
   tags.splice(0, 1);
 
-  console.log(project);
-
   return (
     <>
       <div className="Main-Project-Item" onClick={() => setIdx(project.id)}>
@@ -28,7 +26,10 @@ const MainProjectItem = ({ project, setIdx }) => {
               {tags.map((tech, idx) => (
                 <>
                   {idx < MAX_SHOW_COUNT && (
-                    <div className="Main-Project-Item-Info-Content-Tech-Tag" key={idx}>
+                    <div
+                      className="Main-Project-Item-Info-Content-Tech-Tag"
+                      key={idx}
+                    >
                       {tech}
                     </div>
                   )}
