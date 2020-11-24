@@ -1,0 +1,61 @@
+@import "../../../../util/color.scss";
+
+.Main-Select-Box-Item {
+  display: flex;
+  align-items: center;
+  color: $gray;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+
+  &:hover {
+    color: $dark-gray;
+    & > label {
+      border: 0.125rem solid $dark-gray;
+    }
+  }
+
+  &-Label {
+    cursor: pointer;
+    position: relative;
+    border: 0.125rem solid $light-gray;
+    border-radius: 0.25rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    min-width: 1.1rem;
+    max-width: 1.1rem;
+    background-color: transparent;
+    margin-right: 0.4rem;
+
+    &::before {
+      content: "";
+    }
+  }
+
+  &-CheckBox {
+    display: none !important;
+    position: relative;
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  &-CheckBox:checked ~ &-Name {
+    color: $dark-gray;
+  }
+
+  &-CheckBox:checked ~ &-Label {
+    background-color: $dark-gray;
+    border: none;
+
+    &::before {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.8rem;
+      color: white;
+      content: "\2713";
+    }
+  }
+}
