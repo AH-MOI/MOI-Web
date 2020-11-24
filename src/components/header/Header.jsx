@@ -1,5 +1,6 @@
+import { ACCESS_TOKEN, ACCESS_TOKEN_NAME, BASE_URL_LIST, checkIsLogin, Logout, methodType, requestApiWithoutBodyWithToken } from 'lib/requestApi';
+import { INFO } from 'lib/requestUrl';
 import Modal from 'components/header/logModal/LogModal';
-import { checkIsLogin } from 'lib/requestApi';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import "./Header.scss";
@@ -11,6 +12,18 @@ const activeStyle = {
 }
 
 const Header = () => {
+    const [userInfo, setUserInfo] = useState({
+        area: "",
+        birthday: "",
+        github: "",
+        hashtag: "",
+        id: "",
+        name: "",
+        phoneNumber: "",
+        profile: "",
+        school: "",
+        star: ""
+    })
     const [isLogin, setIsLogin] = useState(false);
     const [modal, setModal] = useState(false);
     const [open, setOpen] = useState(false);
@@ -23,14 +36,27 @@ const Header = () => {
         }
       }
 
+    console.log(userInfo)
+
     useEffect(() => {
         window.addEventListener("click", ClickHandle);
-        checkIsLogin().then(isLogin => { setIsLogin(isLogin) });
+        checkIsLogin().then(isLogin => { 
+            setIsLogin(isLogin);  
+        });
+
+        const accessToken = window.localStorage.getItem(ACCESS_TOKEN);
+        const res = requestApiWithoutBodyWithToken(BASE_URL_LIST.BLUE, methodType.GET, INFO.getUserInfo(), {
+            headers: {
+                [ACCESS_TOKEN_NAME]: accessToken
+            }
+        })
+
+        res.then(res => {console.log(res); setUserInfo({...res.data})});
 
         return () => {
             window.removeEventListener("click", ClickHandle);
         }
-    })
+    }, [])
     
 
     return (
@@ -50,13 +76,13 @@ const Header = () => {
             {isLogin ? 
             (<div className="user-wrap header-item" onClick={() => setOpen(open => !open)}>
                 <img src="" className="user-img" />
-                <p className="user-name">{"유시온"}</p>
+                <p className="user-name">{userInfo.name}</p>
             </div>) : 
             (<button onClick={() => {setModal(true)}} className="header-login-btn header-item">
                 로그인
             </button>)}
             {modal && <Modal modal={modal} setModal={setModal} />}
-            {open && <UserProfile />}
+            {open && <UserProfile userInfo={userInfo}/>}
         </div>
     );
 };
