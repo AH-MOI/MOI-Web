@@ -4,9 +4,9 @@ import ProgressApi from "assets/api/ProgressApi";
 @autobind
 class ProgressStore {
   @observable modal = false;
-  @observable myProgressLoading = false;
-  @observable progressLoading = false;
   @observable modalLoading = false;
+  @observable progress = [];
+  @observable myProgress = [];
 
   @action
   showMoreProgress = () => {
@@ -17,9 +17,6 @@ class ProgressStore {
   tryMyProgress = async () => {
     try {
       const response = await ProgressApi.getMyProgress();
-      if (response.status === 200) {
-        this.myProgressLoading = true;
-      }
 
       return new Promise((resolve, reject) => {
         resolve(response);
@@ -36,7 +33,8 @@ class ProgressStore {
     try {
       const response = await ProgressApi.getProgress();
       if (response.status === 200) {
-        this.progressLoading = true;
+        this.progress = response.data.projects;
+        console.log(this.progress);
       }
 
       return new Promise((resolve, reject) => {
@@ -55,6 +53,8 @@ class ProgressStore {
 
       if (response.status === 200) {
         this.modalLoading = true;
+        this.myProgress = response.data.projects;
+        console.log(this.myProgress);
       }
 
       return new Promise((resolve, reject) => {
