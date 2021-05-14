@@ -92,3 +92,16 @@
 .name {
   font-weight: 600;
 }
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.person {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+}
+.successButton {
+  cursor: pointer;
+}

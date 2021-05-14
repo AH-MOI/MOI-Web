@@ -1,4 +1,4 @@
-import { SERVER_RED } from "../../config/config.json";
+import { SERVER_RED, SERVER_BLUE } from "../../config/config.json";
 import axios from "axios";
 
 class Project {

@@ -3,6 +3,8 @@ import { observer } from "mobx-react";
 import Progress from "components/Progress/Progress";
 import stores from "stores";
 import Header from "components/header/Header";
+import ReactLoading from "react-loading";
+import { ToastContainer, toast } from "react-toastify";
 
 const ProgressContainer = ({}) => {
   const {
@@ -11,23 +13,24 @@ const ProgressContainer = ({}) => {
     tryMyProgress,
     tryProgress,
     tryInfoProgress,
-    modalLoading,
+    getOutModal,
+    tryApplyStudent,
     progress,
     myProgress,
+    getProgress,
   } = stores.ProgressStore;
 
   const [idx, setIdx] = useState();
-  const [moreInfo, setMoreInfo] = useState();
-
+  const [loading, setLoading] = useState(false);
   const [progressLoading, setProgressLoading] = useState(true);
 
   const handleMyProgress = useCallback(async () => {
     await tryMyProgress()
       .then((response) => {
-        console.log(response);
+        const notify = () => toast("Wow so easy !");
       })
       .catch((err) => {
-        console.log(err);
+        const notify = () => toast("오류입니다");
       });
   }, []);
 
@@ -46,37 +49,71 @@ const ProgressContainer = ({}) => {
       });
   };
 
-  const handleInfoProgress = useCallback(async () => {
-    await tryInfoProgress(idx)
+  const handleApplyStudent = async () => {
+    console.log(idx);
+    tryApplyStudent("yuzion@dsm.hs.kr", idx)
       .then((response) => {
-        setMoreInfo(response);
+        console.log("신청에 성공하였습니다.");
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [progress]);
+  };
+
+  const handleInfoProgress = useCallback(
+    async (id) => {
+      await tryInfoProgress(id)
+        .then((response) => {
+          setLoading(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    [progress, idx]
+  );
 
   useEffect(() => {
     handleAllProgress();
   }, []);
 
+  useEffect(() => {
+    if (idx) {
+      handleInfoProgress(idx);
+    }
+  }, [handleInfoProgress]);
+
+  useEffect(() => {
+    getOutModal();
+    setLoading(false);
+  }, [modal]);
+
   return (
     <>
       {!progressLoading ? (
         <>
-          <Header></Header>
-
           <Progress
             modal={modal}
             showMoreProgress={showMoreProgress}
             myProgress={myProgress}
             progress={progress}
             setIdx={setIdx}
+            getProgress={getProgress}
+            loading={loading}
+            handleApplyStudent={handleApplyStudent}
           />
         </>
       ) : (
-        <span>...loading</span>
+        <div className="center">
+          <ReactLoading
+            type={"cubes"}
+            color={"#000000"}
+            height={"6%"}
+            width={"6%"}
+          />
+        </div>
       )}
+      <ToastContainer />
     </>
   );
 };

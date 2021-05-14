@@ -26,7 +26,8 @@ class WriteStore {
         closing_date,
         personnel,
         hashtag,
-        profile
+        profile,
+        hashtag
       );
 
       if (response.status === 200) {

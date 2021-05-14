@@ -9,6 +9,7 @@ import MainRadioBox from "./MainRadioBox/MainRadioBox";
 import { techs } from "../../models/techs";
 import { schools } from "../../models/schools";
 import { languages } from "../../models/languages";
+import { withRouter } from "react-router-dom";
 
 const Main = ({
   setSearch,
@@ -135,10 +136,13 @@ const Main = ({
               <MainProjectItem key={idx} project={project} />
             ))}
           </div>
+          <button className="button" onClick={() => history.push("/write")}>
+            작성하기
+          </button>
         </div>
       </div>
     </>
   );
 };
 
-export default Main;
+export default withRouter(Main);
