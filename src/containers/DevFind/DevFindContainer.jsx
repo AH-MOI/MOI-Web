@@ -1,10 +1,10 @@
-import React, {useState, useCallback, useEffect} from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { observer } from "mobx-react";
 import DevFind from "../../components/DevFind";
 import stores from "stores";
 
 const DevFindContainer = ({}) => {
-  const {devInfo, handleGetDevInfo} = stores.MyProjectStore;
+  const { devInfo, handleGetDevInfo } = stores.MyProjectStore;
 
   const [show, setShow] = useState(false);
   const [showLang, setShowLang] = useState(false);
@@ -43,16 +43,16 @@ const DevFindContainer = ({}) => {
   const handleGetDevInfoCallback = useCallback(async () => {
     setLoading(true);
     await handleGetDevInfo()
-    .then((res) => {
-      if (!res.length) {
-        setNotFound(true);
-      }
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-}, []);
+      .then((res) => {
+        if (!res.length) {
+          setNotFound(true);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   const handleGetProjectsCallback = useCallback(async () => {
     setLoading(true);
@@ -76,29 +76,31 @@ const DevFindContainer = ({}) => {
   const { handleShow } = stores.ModalStore;
   return (
     <>
-      {devInfo && <DevFind
-       handleShow={handleShow}
-       setSearch={setSearch}
-        show={show}
-        setShow={setShow}
-        showLang={showLang}
-        setShowLang={setShowLang}
-        showSchool={showSchool}
-        setShowSchool={setShowSchool}
-        selectedMenu={selectedMenu}
-        setSelectedMenu={setSelectedMenu}
-        selectedLanguage={selectedLanguage}
-        setSelectedLanguage={setSelectedLanguage}
-        selectedSchool={selectedSchool}
-        setSelectedSchool={setSelectedSchool}
-        removeSelectedMenu={removeSelectedMenu}
-        removeSelectedLanguage={removeSelectedLanguage}
-        initSelectedList={initSelectedList}
-        projects={projects}
-        loading={loading}
-        notFound={notFound}
-        devFindList={devInfo}
-       />}
+      {devInfo && (
+        <DevFind
+          handleShow={handleShow}
+          setSearch={setSearch}
+          show={show}
+          setShow={setShow}
+          showLang={showLang}
+          setShowLang={setShowLang}
+          showSchool={showSchool}
+          setShowSchool={setShowSchool}
+          selectedMenu={selectedMenu}
+          setSelectedMenu={setSelectedMenu}
+          selectedLanguage={selectedLanguage}
+          setSelectedLanguage={setSelectedLanguage}
+          selectedSchool={selectedSchool}
+          setSelectedSchool={setSelectedSchool}
+          removeSelectedMenu={removeSelectedMenu}
+          removeSelectedLanguage={removeSelectedLanguage}
+          initSelectedList={initSelectedList}
+          projects={projects}
+          loading={loading}
+          notFound={notFound}
+          devFindList={devInfo}
+        />
+      )}
     </>
   );
 };

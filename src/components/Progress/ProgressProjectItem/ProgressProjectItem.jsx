@@ -1,5 +1,4 @@
 import React from "react";
-import "./ProgressProjectItem.scss";
 import ProgressModal from "../ProgressModal/ProgressModal";
 import moment from "moment";
 

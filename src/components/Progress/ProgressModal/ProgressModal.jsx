@@ -21,9 +21,6 @@ const ProgressModal = ({
       document.body.style.overflow = "unset";
     };
   }, [modal]);
-
-  console.log(getProgress);
-
   return (
     <>
       {loading ? (

@@ -6,7 +6,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import MainPage from "../pages/MainPage";
 import ProgressPage from "pages/ProgressPage";
 import DevFindPage from "pages/DevFindPage";
-import WritePage from "../pages/WritePage";
+import WritePage from "pages/WritePage";
 import HeaderContainer from "containers/Header/HeaderContainer";
 
 const App = () => {

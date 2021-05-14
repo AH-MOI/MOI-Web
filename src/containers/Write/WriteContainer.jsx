@@ -41,6 +41,7 @@ const WriteContainer = ({}) => {
         });
     };
   };
+
   const removeSelectedItem = (item) => {
     let array = [...selectedItem];
     const index = array.indexOf(item);

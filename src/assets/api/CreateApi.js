@@ -1,7 +1,7 @@
 import axios from "axios";
 import { SERVER_RED, SERVER_BLUE } from "../../config/config.json";
 class CreateApi {
-  async create(title, content, closing_date, personnel, hashtag) {
+  async create(title, content, closing_date, personnel, hashtag, profile) {
     try {
       const url = `${SERVER_RED}/project`;
 
@@ -11,6 +11,7 @@ class CreateApi {
         closing_date,
         personnel,
         hashtag,
+        profile,
       };
 
       let config = {};

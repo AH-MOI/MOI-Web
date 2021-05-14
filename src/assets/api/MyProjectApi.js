@@ -10,9 +10,8 @@ class MyProjectAPI {
         },
       };
       const url = `${SERVER_BLUE}/info/all-student`;
-      const { data } = await axios.get(url);
+      const { data } = await axios.get(url, config);
 
-      //const {data} = await axios.get(url, config);
       return data;
     } catch (error) {
       console.log(error);

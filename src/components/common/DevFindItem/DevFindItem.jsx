@@ -1,9 +1,7 @@
 import React from "react";
-import stores from "stores";
 import "./DevFindItem.scss";
 
-const DevFindItem = ({ handleShow, devInfo, idx }) => {
-  console.log(devInfo);
+const DevFindItem = ({ handleShow }) => {
   const MAX_SHOW_COUNT = 4;
   const techModel = ["Node", "Spring", "React", "ReactNative", "JS", "TS"];
 
@@ -15,7 +13,11 @@ const DevFindItem = ({ handleShow, devInfo, idx }) => {
         </div>
         <div className="Dev-Find-Item-Info">
           <div className="Dev-Find-Item-Info-Content">
-            <p className="Dev-Find-Item-Info-Content-Name">
+            <p className="Dev-Find-Item-Info-Content-Name">문재민</p>
+            <p className="Dev-Find-Item-Info-Content-Produce">
+              동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세
+              무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세 남산 위에
+              저 소나무 철갑을 두른 듯 바람서리 불변함은
               {devInfo.name}
             </p>
             <p className="Dev-Find-Item-Info-Content-Produce">
@@ -25,7 +27,10 @@ const DevFindItem = ({ handleShow, devInfo, idx }) => {
               {techModel.map((tech, idx) => (
                 <>
                   {idx < MAX_SHOW_COUNT && (
-                    <div className="Dev-Find-Item-Info-Content-Tech-Tag" key={idx}>
+                    <div
+                      className="Dev-Find-Item-Info-Content-Tech-Tag"
+                      key={idx}
+                    >
                       {tech}
                     </div>
                   )}
@@ -42,9 +47,7 @@ const DevFindItem = ({ handleShow, devInfo, idx }) => {
             <p className="Dev-Find-Item-Info-Bottom-Rating">
               평점: <span>{devInfo.star}</span>/5.0
             </p>
-            <p className="Dev-Find-Item-Info-Bottom-Belong">
-              {devInfo.school}
-            </p>
+            <p className="Dev-Find-Item-Info-Bottom-Belong">{devInfo.school}</p>
           </div>
         </div>
       </div>

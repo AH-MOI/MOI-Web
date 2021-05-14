@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import WriteSelectBox from "./WriteSelectBox/WriteSelectBox";
-import techs from "../../models/techs";
+import { techs } from "../../models/techs";
 import { withRouter } from "react-router-dom";
 
 const Write = ({
@@ -24,13 +24,6 @@ const Write = ({
   removeSelectedItem,
   show,
   setShow,
-  count,
-  setCount,
-  all,
-  setAll,
-  setChangeCount,
-  handleCreateTeam,
-  history,
 }) => {
   const person = [1, 2, 3, 4, 5, 6, , 7, 8, 9, 10];
   return (

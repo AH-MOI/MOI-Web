@@ -16,7 +16,8 @@ class WriteStore {
     content,
     closing_date,
     personnel,
-    hashtag
+    hashtag,
+    profile
   ) => {
     try {
       const response = await CreateApi.create(
@@ -24,6 +25,8 @@ class WriteStore {
         content,
         closing_date,
         personnel,
+        hashtag,
+        profile,
         hashtag
       );
 

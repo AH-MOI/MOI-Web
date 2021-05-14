@@ -38,8 +38,6 @@ class ProgressApi {
 
       const data = await axios.get(url, config);
 
-      console.log(data);
-
       return data;
     } catch (error) {
       throw new Error(`${error}`);
