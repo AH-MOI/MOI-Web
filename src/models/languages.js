@@ -1,4 +1,4 @@
-export default languages = [
+export const languages = [
   "C",
   "C#",
   "C++",

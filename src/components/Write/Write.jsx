@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import WriteSelectBox from "./WriteSelectBox/WriteSelectBox";
-import techs from "../../models/techs";
+import { techs } from "../../models/techs";
 
 const Write = ({
   tag,

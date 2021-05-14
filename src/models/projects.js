@@ -1,0 +1,51 @@
+export const projects = [
+  {
+    title: "테스트용 제목",
+    content: "테스트용 내용.",
+    hashtag: "태그1#태그2#태그3#태그4#태그5",
+    writer: "김폭풍",
+    closing_date: new Date(),
+  },
+  {
+    title: "테스트용 제목",
+    content: "테스트용 내용.",
+    hashtag: "태그1#태그2#태그3#태그4#태그5",
+    writer: "김폭풍",
+    closing_date: new Date(),
+  },
+  {
+    title: "테스트용 제목",
+    content: "테스트용 내용.",
+    hashtag: "태그1#태그2#태그3#태그4#태그5",
+    writer: "김폭풍",
+    closing_date: new Date(),
+  },
+  {
+    title: "테스트용 제목",
+    content: "테스트용 내용.",
+    hashtag: "태그1#태그2#태그3#태그4#태그5",
+    writer: "김폭풍",
+    closing_date: new Date(),
+  },
+  {
+    title: "테스트용 제목",
+    content: "테스트용 내용.",
+    hashtag: "태그1#태그2#태그3#태그4#태그5",
+    writer: "김폭풍",
+    closing_date: new Date(),
+  },
+  {
+    title: "테스트용 제목",
+    content: "테스트용 내용.",
+    hashtag: "태그1#태그2#태그3#태그4#태그5",
+    writer: "김폭풍",
+    closing_date: new Date(),
+  },
+  {
+    title: "테스트용 제목",
+    content: "테스트용 내용.",
+    hashtag: "태그1#태그2#태그3#태그4#태그5",
+    writer: "김폭풍",
+    closing_date: new Date(),
+  },
+];
