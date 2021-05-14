@@ -5,8 +5,10 @@ import ProgressApi from "assets/api/ProgressApi";
 class ProgressStore {
   @observable modal = false;
   @observable modalLoading = false;
+
   @observable progress = [];
   @observable myProgress = [];
+  @observable getProgress = {};
 
   @action
   showMoreProgress = () => {
@@ -14,9 +16,20 @@ class ProgressStore {
   };
 
   @action
+  getOutModal = () => {
+    if (this.modal === false) {
+      this.getProgress = {};
+    }
+  };
+
+  @action
   tryMyProgress = async () => {
     try {
       const response = await ProgressApi.getMyProgress();
+
+      if (response.status === 200) {
+        this.myProgress = response.data.projects;
+      }
 
       return new Promise((resolve, reject) => {
         resolve(response);
@@ -34,7 +47,6 @@ class ProgressStore {
       const response = await ProgressApi.getProgress();
       if (response.status === 200) {
         this.progress = response.data.projects;
-        console.log(this.progress);
       }
 
       return new Promise((resolve, reject) => {
@@ -46,6 +58,7 @@ class ProgressStore {
       });
     }
   };
+
   @action
   tryInfoProgress = async (id) => {
     try {
@@ -54,7 +67,30 @@ class ProgressStore {
       if (response.status === 200) {
         this.modalLoading = true;
         this.myProgress = response.data.projects;
-        console.log(this.myProgress);
+        this.getProgress = response.data;
+        this.modalLoading = true;
+      }
+      console.log(this.modalLoading);
+
+      return new Promise((resolve, reject) => {
+        resolve(response);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  };
+  @action
+  tryApplyStudent = async (appliedStudentId, projectId) => {
+    try {
+      const response = await ProgressApi.applyStuddent(
+        appliedStudentId,
+        projectId
+      );
+
+      if (response.status === 200) {
+        console.log(response);
       }
 
       return new Promise((resolve, reject) => {
